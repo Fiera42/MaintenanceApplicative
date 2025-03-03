@@ -1,9 +1,6 @@
 package com.gildedrose;
 
-import com.gildedrose.items.AgingItem;
-import com.gildedrose.items.BackstagePassesItem;
-import com.gildedrose.items.GenericItem;
-import com.gildedrose.items.LegendaryItem;
+import com.gildedrose.items.*;
 
 public class ItemFactory {
     public static final String AGED_BRIE = "Aged Brie";
@@ -11,6 +8,10 @@ public class ItemFactory {
     public static final String SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
 
     public static UpdatableItem createItem(String name, int sellIn, int quality) {
+        return createItem(name, sellIn, quality, false);
+    }
+
+    public static UpdatableItem createItem(String name, int sellIn, int quality, boolean conjured) {
         UpdatableItem res;
         switch(name) {
             case AGED_BRIE:
@@ -24,6 +25,10 @@ public class ItemFactory {
                 break;
             default:
                 res = new GenericItem(name, sellIn, quality);
+        }
+
+        if(conjured) {
+            res = new ConjuredItem(res, name, sellIn, quality);
         }
 
         return res;
