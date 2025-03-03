@@ -11,55 +11,42 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals(AGED_BRIE)
-                    && !items[i].name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-
-                    if (items[i].name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
+        for(Item item : items) {
+            switch(item.name) {
+                case AGED_BRIE:
+                    agedBrie(item);
+                    break;
+                case SULFURAS_HAND_OF_RAGNAROS:
+                    // Sulfuras is legendary : we never change it
+                    break;
+                case BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT:
+                    backstagePasses(item);
+                    break;
+                default:
+                    genericItem(item);
             }
 
-            if (!items[i].name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals(AGED_BRIE)) {
-                    if (!items[i].name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
-            }
+            if(item.quality > 50) item.quality = 50;
+            if(item.quality < 0) item.quality = 0;
         }
+    }
+
+    private void genericItem(Item item) {
+        item.quality--;
+        item.sellIn--;
+        if(item.sellIn < 0) item.quality--;
+    }
+
+    private void agedBrie(Item item) {
+        item.quality++;
+        item.sellIn--;
+    }
+
+    private void backstagePasses(Item item) {
+        item.sellIn--;
+        item.quality++;
+        if(item.sellIn <= 10) item.quality++;
+        if(item.sellIn <= 5) item.quality++;
+        if(item.sellIn <= 0) item.quality = 0;
     }
 }
