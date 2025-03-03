@@ -105,12 +105,12 @@ class GildedRoseTest {
     public void testAgedBrieAndBackstagePassesQualityGoesUpOverTime() {
         Item[] items = new Item[] {
                 new Item(GildedRose.AGED_BRIE, 11, 3),
-                new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, 12, 3)
+                new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, 11, 3)
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(4, app.items[0].quality, "Quality should go up");
-        assertEquals(4, app.items[1].quality, "Quality should go up");
+        assertEquals(4, app.items[0].quality, "Quality should go up by 1");
+        assertEquals(4, app.items[1].quality, "Quality should go up by 1");
     }
 
     @Test
@@ -137,7 +137,7 @@ class GildedRoseTest {
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(4, app.items[0].quality, "Quality should go up by 2");
+        assertEquals(3, app.items[0].quality, "Quality should go up by 1");
         assertEquals(4, app.items[1].quality, "Quality should go up by 2");
     }
 
@@ -145,8 +145,8 @@ class GildedRoseTest {
     @DisplayName("Backstage passes quality grow by 3 when sellIn <= 5")
     public void testBackstagePassesQualityGrowBy3WhenSellInLessThan5() {
         Item[] items = new Item[] {
-                new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, 6, 2),
-                new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, 2, 2)
+                new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, 5, 2),
+                new Item(GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, 1, 2)
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();

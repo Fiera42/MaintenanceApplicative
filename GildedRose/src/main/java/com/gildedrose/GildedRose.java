@@ -33,8 +33,8 @@ class GildedRose {
 
     private void genericItem(Item item) {
         item.quality--;
-        item.sellIn--;
         if(item.sellIn < 0) item.quality--;
+        item.sellIn--;
     }
 
     private void agedBrie(Item item) {
@@ -43,10 +43,10 @@ class GildedRose {
     }
 
     private void backstagePasses(Item item) {
-        item.sellIn--;
         item.quality++;
         if(item.sellIn <= 10) item.quality++;
         if(item.sellIn <= 5) item.quality++;
         if(item.sellIn <= 0) item.quality = 0;
+        item.sellIn--;
     }
 }
