@@ -1,3 +1,9 @@
+# Info
+
+Refactoring project for school
+
+Project of Adrien Naigeon
+
 # Spécification de la Rose dorée (Gilded Rose)
 
 Bonjour et bienvenue dans l'équipe de la Rose dorée.
