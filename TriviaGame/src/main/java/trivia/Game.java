@@ -3,6 +3,7 @@ package trivia;
 import java.util.*;
 
 // REFACTOR ME
+// BLABLA
 public class Game implements IGame {
 
    ArrayList<Player> players = new ArrayList<>();
