@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 
-// TODO refactor me
+// TODO refactor me (bug & typo)
 public class GameOld implements IGame {
    ArrayList<String> players = new ArrayList<>();
    int[] places = new int[6];
@@ -115,7 +115,7 @@ public class GameOld implements IGame {
    public boolean handleCorrectAnswer() {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
-            System.out.println("Answer was corrent!!!!");
+            System.out.println("Answer was current!!!!");
             purses[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
                                + " now has "
