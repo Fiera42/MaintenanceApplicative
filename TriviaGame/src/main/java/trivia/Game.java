@@ -8,6 +8,7 @@ public class Game implements IGame {
    int[] places = new int[6];
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
+   QuestionTheme[] cells;
 
    Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
 
@@ -25,6 +26,8 @@ public class Game implements IGame {
       for(QuestionTheme theme : QuestionTheme.values()) {
          generateThemeQuestions(theme);
       }
+
+      generateCells(12);
    }
 
    public void generateThemeQuestions(QuestionTheme theme) {
@@ -33,6 +36,17 @@ public class Game implements IGame {
 
       for (int i = 0; i < 50; i++) {
          themeQuestions.add(theme.name() + " Question " + i);
+      }
+   }
+
+   public void generateCells(int cellCount) {
+      cells = new QuestionTheme[cellCount];
+      var themes = QuestionTheme.values();
+
+      int themeIndex = 0;
+      for (int i = 0; i < cellCount; i++) {
+         cells[i] = themes[themeIndex++];
+         themeIndex %= themes.length;
       }
    }
 
@@ -61,7 +75,7 @@ public class Game implements IGame {
 
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
             places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+            if (places[currentPlayer] > cells.length) places[currentPlayer] = places[currentPlayer] - cells.length;
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
@@ -76,7 +90,7 @@ public class Game implements IGame {
       } else {
 
          places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+         if (places[currentPlayer] > cells.length) places[currentPlayer] = places[currentPlayer] - cells.length;
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
@@ -100,16 +114,7 @@ public class Game implements IGame {
 
 
    private QuestionTheme currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return QuestionTheme.Pop;
-      if (places[currentPlayer] - 1 == 4) return QuestionTheme.Pop;
-      if (places[currentPlayer] - 1 == 8) return QuestionTheme.Pop;
-      if (places[currentPlayer] - 1 == 1) return QuestionTheme.Science;
-      if (places[currentPlayer] - 1 == 5) return QuestionTheme.Science;
-      if (places[currentPlayer] - 1 == 9) return QuestionTheme.Science;
-      if (places[currentPlayer] - 1 == 2) return QuestionTheme.Sports;
-      if (places[currentPlayer] - 1 == 6) return QuestionTheme.Sports;
-      if (places[currentPlayer] - 1 == 10) return QuestionTheme.Sports;
-      return QuestionTheme.Rock;
+      return cells[places[currentPlayer] - 1];
    }
 
    public boolean handleCorrectAnswer() {
