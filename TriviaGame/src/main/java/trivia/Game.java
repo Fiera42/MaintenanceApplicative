@@ -50,7 +50,7 @@ public class Game implements IGame {
       }
    }
 
-   public boolean add(String playerName) {
+   public boolean addPlayer(String playerName) {
       places[howManyPlayers()] = 1;
       purses[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
