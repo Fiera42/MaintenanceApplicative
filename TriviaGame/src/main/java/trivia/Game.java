@@ -1,9 +1,6 @@
 package trivia;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 // REFACTOR ME
 public class Game implements IGame {
@@ -12,6 +9,11 @@ public class Game implements IGame {
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
+   Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
+
+   int currentPlayer = 0;
+   boolean isGettingOutOfPenaltyBox;
+
    public enum QuestionTheme {
       Pop,
       Science,
@@ -19,19 +21,18 @@ public class Game implements IGame {
       Rock
    }
 
-   Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
-
-   int currentPlayer = 0;
-   boolean isGettingOutOfPenaltyBox;
-
    public Game() {
-      for(QuestionTheme qt : QuestionTheme.values()) {
-         var themeQuestions = new LinkedList<String>();
-         this.questions.put(qt, themeQuestions);
+      for(QuestionTheme theme : QuestionTheme.values()) {
+         generateThemeQuestions(theme);
+      }
+   }
 
-         for (int i = 0; i < 50; i++) {
-            themeQuestions.add(qt.name() + " Question " + i);
-         }
+   public void generateThemeQuestions(QuestionTheme theme) {
+      var themeQuestions = new LinkedList<String>();
+      this.questions.put(theme, themeQuestions);
+
+      for (int i = 0; i < 50; i++) {
+         themeQuestions.add(theme.name() + " Question " + i);
       }
    }
 
@@ -91,10 +92,14 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      System.out.println(
-              questions.get(currentCategory())
-                      .removeFirst()
-      );
+      QuestionTheme currentTheme = currentCategory();
+      LinkedList<String> themeQuestions = questions.get(currentTheme);
+
+      if(themeQuestions.isEmpty()) {
+         generateThemeQuestions(currentTheme);
+      }
+
+      System.out.println(themeQuestions.removeFirst());
    }
 
 
