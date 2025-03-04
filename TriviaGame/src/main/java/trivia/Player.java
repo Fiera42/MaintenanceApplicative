@@ -9,9 +9,13 @@ public class Player{
 
     public Player(String name){
         this.name = name;
-        this.place = 1;
+        this.place = 0;
         this.purse = 0;
         this.inPenaltyBox = false;
+    }
+
+    public String toString(){
+        return name;
     }
 
 }

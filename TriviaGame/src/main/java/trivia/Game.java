@@ -22,7 +22,6 @@ public class Game implements IGame {
       for(QuestionTheme theme : QuestionTheme.values()) {
          generateThemeQuestions(theme);
       }
-
       generateCells(12);
    }
 
@@ -70,11 +69,11 @@ public class Game implements IGame {
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 
             player.place = player.place + roll;
-            if (player.place > cells.length) player.place = player.place - cells.length;
+            if (player.place >= cells.length) player.place = player.place - cells.length;
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
-                               + player.place);
+                               + (player.place+1));
             System.out.println("The category is " + currentCategory().name());
             askQuestion();
          } else {
@@ -85,11 +84,11 @@ public class Game implements IGame {
       } else {
 
          player.place = player.place + roll;
-         if (player.place > cells.length) player.place = player.place - cells.length;
+         if (player.place >= cells.length) player.place = player.place - cells.length;
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
-                            + player.place);
+                            + (player.place+1));
          System.out.println("The category is " + currentCategory().name());
          askQuestion();
       }
@@ -109,7 +108,7 @@ public class Game implements IGame {
 
 
    private QuestionTheme currentCategory() {
-      return cells[places[currentPlayer] - 1];
+      return cells[players.get(currentPlayer).place];
    }
 
    public boolean handleCorrectAnswer() {
