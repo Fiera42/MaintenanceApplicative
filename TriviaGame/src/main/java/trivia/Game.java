@@ -52,47 +52,36 @@ public class Game implements IGame {
       return true;
    }
 
-   public int howManyPlayers() {
-      return players.size();
-   }
-
    public void roll(int roll) {
-      System.out.println(players.get(currentPlayer) + " is the current player");
+      var player = players.get(this.currentPlayer);
+
+      System.out.println(player + " is the current player");
       System.out.println("They have rolled a " + roll);
-      
-      Player player = players.get(currentPlayer);
 
       if (player.inPenaltyBox) {
          if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
-
-            System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-
-            player.place = player.place + roll;
-            if (player.place >= cells.length) player.place = player.place - cells.length;
-
-            System.out.println(players.get(currentPlayer)
-                               + "'s new location is "
-                               + (player.place+1));
-            System.out.println("The category is " + currentCategory().name());
-            askQuestion();
-         } else {
-            System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-            isGettingOutOfPenaltyBox = false;
+            System.out.println(player + " is getting out of the penalty box");
          }
-
-      } else {
-
-         player.place = player.place + roll;
-         if (player.place >= cells.length) player.place = player.place - cells.length;
-
-         System.out.println(players.get(currentPlayer)
-                            + "'s new location is "
-                            + (player.place+1));
-         System.out.println("The category is " + currentCategory().name());
-         askQuestion();
+         else {
+            System.out.println(player + " is not getting out of the penalty box");
+            isGettingOutOfPenaltyBox = false;
+            return;
+         }
       }
 
+      moveAndAskQuestion(roll, player);
+   }
+
+   private void moveAndAskQuestion(int roll, Player player) {
+      player.place = player.place + roll;
+      player.place %= cells.length;
+
+      System.out.println(player
+                         + "'s new location is "
+                         + (player.place+1));
+      System.out.println("The category is " + currentCategory().name());
+      askQuestion();
    }
 
    private void askQuestion() {
