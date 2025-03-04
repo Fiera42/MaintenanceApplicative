@@ -1,7 +1,9 @@
 package trivia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 // REFACTOR ME
 public class Game implements IGame {
@@ -17,25 +19,20 @@ public class Game implements IGame {
       Rock
    }
 
-   LinkedList<String> popQuestions = new LinkedList<>();
-   LinkedList<String> scienceQuestions = new LinkedList<>();
-   LinkedList<String> sportsQuestions = new LinkedList<>();
-   LinkedList<String> rockQuestions = new LinkedList<>();
+   Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
-      for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
-      }
-   }
+      for(QuestionTheme qt : QuestionTheme.values()) {
+         var themeQuestions = new LinkedList<String>();
+         this.questions.put(qt, themeQuestions);
 
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
+         for (int i = 0; i < 50; i++) {
+            themeQuestions.add(qt.name() + " Question " + i);
+         }
+      }
    }
 
    public boolean isPlayable() {
@@ -94,14 +91,10 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      if (currentCategory() == QuestionTheme.Pop)
-         System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == QuestionTheme.Science)
-         System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == QuestionTheme.Sports)
-         System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == QuestionTheme.Rock)
-         System.out.println(rockQuestions.removeFirst());
+      System.out.println(
+              questions.get(currentCategory())
+                      .removeFirst()
+      );
    }
 
 
