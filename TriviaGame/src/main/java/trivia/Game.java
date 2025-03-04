@@ -45,7 +45,7 @@ public class Game implements IGame {
       }
    }
 
-   public boolean add(String playerName) {
+   public boolean addPlayer(String playerName) {
       players.add(new Player(playerName));
       System.out.println(playerName + " was added");
       System.out.println("They are player number " + players.size());
@@ -117,7 +117,7 @@ public class Game implements IGame {
 
       if (player.inPenaltyBox) {
          if (isGettingOutOfPenaltyBox) {
-            System.out.println("Answer was current!!!!");
+            System.out.println("Answer was correct!!!!");
             player.purse++;
             System.out.println(players.get(currentPlayer)
                                + " now has "
@@ -138,7 +138,7 @@ public class Game implements IGame {
 
       } else {
 
-         System.out.println("Answer was current!!!!");
+         System.out.println("Answer was correct!!!!");
          player.purse++;
          System.out.println(players.get(currentPlayer)
                             + " now has "
