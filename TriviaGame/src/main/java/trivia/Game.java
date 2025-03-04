@@ -10,6 +10,13 @@ public class Game implements IGame {
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
+   public enum QuestionTheme {
+      Pop,
+      Science,
+      Sports,
+      Rock
+   }
+
    LinkedList<String> popQuestions = new LinkedList<>();
    LinkedList<String> scienceQuestions = new LinkedList<>();
    LinkedList<String> sportsQuestions = new LinkedList<>();
@@ -65,7 +72,7 @@ public class Game implements IGame {
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
                                + places[currentPlayer]);
-            System.out.println("The category is " + currentCategory());
+            System.out.println("The category is " + currentCategory().name());
             askQuestion();
          } else {
             System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
@@ -80,35 +87,35 @@ public class Game implements IGame {
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
                             + places[currentPlayer]);
-         System.out.println("The category is " + currentCategory());
+         System.out.println("The category is " + currentCategory().name());
          askQuestion();
       }
 
    }
 
    private void askQuestion() {
-      if (currentCategory() == "Pop")
+      if (currentCategory() == QuestionTheme.Pop)
          System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == "Science")
+      if (currentCategory() == QuestionTheme.Science)
          System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == "Sports")
+      if (currentCategory() == QuestionTheme.Sports)
          System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == "Rock")
+      if (currentCategory() == QuestionTheme.Rock)
          System.out.println(rockQuestions.removeFirst());
    }
 
 
-   private String currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return "Pop";
-      if (places[currentPlayer] - 1 == 4) return "Pop";
-      if (places[currentPlayer] - 1 == 8) return "Pop";
-      if (places[currentPlayer] - 1 == 1) return "Science";
-      if (places[currentPlayer] - 1 == 5) return "Science";
-      if (places[currentPlayer] - 1 == 9) return "Science";
-      if (places[currentPlayer] - 1 == 2) return "Sports";
-      if (places[currentPlayer] - 1 == 6) return "Sports";
-      if (places[currentPlayer] - 1 == 10) return "Sports";
-      return "Rock";
+   private QuestionTheme currentCategory() {
+      if (places[currentPlayer] - 1 == 0) return QuestionTheme.Pop;
+      if (places[currentPlayer] - 1 == 4) return QuestionTheme.Pop;
+      if (places[currentPlayer] - 1 == 8) return QuestionTheme.Pop;
+      if (places[currentPlayer] - 1 == 1) return QuestionTheme.Science;
+      if (places[currentPlayer] - 1 == 5) return QuestionTheme.Science;
+      if (places[currentPlayer] - 1 == 9) return QuestionTheme.Science;
+      if (places[currentPlayer] - 1 == 2) return QuestionTheme.Sports;
+      if (places[currentPlayer] - 1 == 6) return QuestionTheme.Sports;
+      if (places[currentPlayer] - 1 == 10) return QuestionTheme.Sports;
+      return QuestionTheme.Rock;
    }
 
    public boolean handleCorrectAnswer() {
