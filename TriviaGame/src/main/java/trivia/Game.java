@@ -1,13 +1,15 @@
 package trivia;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 // REFACTOR ME
 public class Game implements IGame {
+
    ArrayList<Player> players = new ArrayList<>();
+   QuestionTheme[] cells;
+   Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
+   int currentPlayer = 0;
+   boolean isGettingOutOfPenaltyBox;
 
    public enum QuestionTheme {
       Pop,
@@ -16,19 +18,31 @@ public class Game implements IGame {
       Rock
    }
 
-   Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
-
-   int currentPlayer = 0;
-   boolean isGettingOutOfPenaltyBox;
-
    public Game() {
-      for(QuestionTheme qt : QuestionTheme.values()) {
-         var themeQuestions = new LinkedList<String>();
-         this.questions.put(qt, themeQuestions);
+      for(QuestionTheme theme : QuestionTheme.values()) {
+         generateThemeQuestions(theme);
+      }
 
-         for (int i = 0; i < 50; i++) {
-            themeQuestions.add(qt.name() + " Question " + i);
-         }
+      generateCells(12);
+   }
+
+   public void generateThemeQuestions(QuestionTheme theme) {
+      var themeQuestions = new LinkedList<String>();
+      this.questions.put(theme, themeQuestions);
+
+      for (int i = 0; i < 50; i++) {
+         themeQuestions.add(theme.name() + " Question " + i);
+      }
+   }
+
+   public void generateCells(int cellCount) {
+      cells = new QuestionTheme[cellCount];
+      var themes = QuestionTheme.values();
+
+      int themeIndex = 0;
+      for (int i = 0; i < cellCount; i++) {
+         cells[i] = themes[themeIndex++];
+         themeIndex %= themes.length;
       }
    }
 
@@ -54,8 +68,9 @@ public class Game implements IGame {
             isGettingOutOfPenaltyBox = true;
 
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+
             player.place = player.place + roll;
-            if (player.place > 12) player.place = player.place - 12;
+            if (player.place > cells.length) player.place = player.place - cells.length;
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
@@ -70,7 +85,7 @@ public class Game implements IGame {
       } else {
 
          player.place = player.place + roll;
-         if (player.place > 12) player.place = player.place - 12;
+         if (player.place > cells.length) player.place = player.place - cells.length;
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
@@ -82,25 +97,19 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      System.out.println(
-              questions.get(currentCategory())
-                      .removeFirst()
-      );
+      QuestionTheme currentTheme = currentCategory();
+      LinkedList<String> themeQuestions = questions.get(currentTheme);
+
+      if(themeQuestions.isEmpty()) {
+         generateThemeQuestions(currentTheme);
+      }
+
+      System.out.println(themeQuestions.removeFirst());
    }
 
 
    private QuestionTheme currentCategory() {
-      Player player = players.get(currentPlayer);
-      if (player.place - 1 == 0) return QuestionTheme.Pop;
-      if (player.place - 1 == 4) return QuestionTheme.Pop;
-      if (player.place - 1 == 8) return QuestionTheme.Pop;
-      if (player.place - 1 == 1) return QuestionTheme.Science;
-      if (player.place - 1 == 5) return QuestionTheme.Science;
-      if (player.place - 1 == 9) return QuestionTheme.Science;
-      if (player.place - 1 == 2) return QuestionTheme.Sports;
-      if (player.place - 1 == 6) return QuestionTheme.Sports;
-      if (player.place - 1 == 10) return QuestionTheme.Sports;
-      return QuestionTheme.Rock;
+      return cells[places[currentPlayer] - 1];
    }
 
    public boolean handleCorrectAnswer() {
