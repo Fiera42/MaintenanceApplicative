@@ -6,15 +6,15 @@ import java.util.LinkedList;
 
 // TODO refactor me (bug & typo)
 public class GameOld implements IGame {
-   ArrayList<String> players = new ArrayList<>();
+   ArrayList players = new ArrayList();
    int[] places = new int[6];
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
-   LinkedList<String> popQuestions = new LinkedList<>();
-   LinkedList<String> scienceQuestions = new LinkedList<>();
-   LinkedList<String> sportsQuestions = new LinkedList<>();
-   LinkedList<String> rockQuestions = new LinkedList<>();
+   LinkedList popQuestions = new LinkedList();
+   LinkedList scienceQuestions = new LinkedList();
+   LinkedList sportsQuestions = new LinkedList();
+   LinkedList rockQuestions = new LinkedList();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
