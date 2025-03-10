@@ -34,6 +34,8 @@ public class Game implements IGame {
    }
 
    public boolean addPlayer(String playerName) {
+      if(players.size() >= 6) return false;
+
       players.addLast(new Player(playerName));
       System.out.println(playerName + " was added");
       System.out.println("They are player number " + players.size());
