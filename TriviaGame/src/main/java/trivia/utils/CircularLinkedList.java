@@ -4,7 +4,13 @@ public class CircularLinkedList<T> {
     private CircularLinkedListNode<T> head;
 
     public T getHead() {
+        if(head == null) return null;
         return head.getData();
+    }
+
+    public CircularLinkedListNode<T> getHeadNode() {
+        if(head == null) return null;
+        return head;
     }
 
     public T next() {

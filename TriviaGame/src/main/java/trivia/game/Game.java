@@ -7,10 +7,10 @@ import java.util.*;
 
 public class Game implements IGame {
 
-   CircularLinkedList<Player> players = new CircularLinkedList<>();
-   QuestionTheme[] cells;
-   Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
-   boolean isGettingOutOfPenaltyBox;
+   private final CircularLinkedList<Player> players = new CircularLinkedList<>();
+   private final QuestionTheme[] cells;
+   private final Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
+   private boolean isGettingOutOfPenaltyBox;
 
    public Game() {
       for(QuestionTheme theme : QuestionTheme.values()) {
