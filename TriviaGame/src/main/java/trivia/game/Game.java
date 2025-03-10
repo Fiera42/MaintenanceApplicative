@@ -1,4 +1,6 @@
-package trivia;
+package trivia.game;
+
+import trivia.IGame;
 
 import java.util.*;
 

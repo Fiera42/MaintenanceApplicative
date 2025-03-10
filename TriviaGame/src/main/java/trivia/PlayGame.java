@@ -1,5 +1,7 @@
 package trivia;
 
+import trivia.game.Game;
+
 import java.util.Random;
 import java.util.Scanner;
 

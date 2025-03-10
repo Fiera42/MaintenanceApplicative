@@ -12,6 +12,9 @@ import java.util.Random;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import trivia.game.Game;
+import trivia.game.Player;
+import trivia.game.QuestionTheme;
 
 @DisplayName("Testing 'Game' class for...")
 public class GameTest {
