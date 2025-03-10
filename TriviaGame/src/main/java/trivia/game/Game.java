@@ -5,6 +5,7 @@ import trivia.utils.CircularLinkedList;
 
 import java.util.*;
 
+// Done
 public class Game implements IGame {
 
    private final CircularLinkedList<Player> players = new CircularLinkedList<>();
