@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
+@DisplayName("Testing 'Game' class for...")
 public class GameTest {
 	@Test
 	public void caracterizationTest() {
@@ -62,5 +64,17 @@ public class GameTest {
 		}
 
 		return new String(baos.toByteArray());
+	}
+
+	@Test
+	@DisplayName("Theme questions generation")
+	public void TestThemeQuestionsGeneration() {
+		for(Game.QuestionTheme theme : Game.QuestionTheme.values()) {
+			List<String> questions = theme.generateThemeQuestions();
+
+			for(int i = 0; i < questions.size(); i++) {
+				assertEquals(theme.getText() + " Question " + i, questions.get(i));
+			}
+		}
 	}
 }

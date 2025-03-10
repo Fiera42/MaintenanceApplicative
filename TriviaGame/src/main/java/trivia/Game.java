@@ -11,26 +11,37 @@ public class Game implements IGame {
    boolean isGettingOutOfPenaltyBox;
 
    public enum QuestionTheme {
-      Pop,
-      Science,
-      Sports,
-      Rock
+      POP("Pop"),
+      SCIENCE("Science"),
+      SPORTS("Sports"),
+      ROCK("Rock");
+
+      private final String text;
+
+      QuestionTheme(String text) {
+         this.text = text;
+      }
+
+      public String getText() {
+         return text;
+      }
+
+      public LinkedList<String> generateThemeQuestions() {
+         var themeQuestions = new LinkedList<String>();
+
+         for (int i = 0; i < 50; i++) {
+            themeQuestions.add(this.text + " Question " + i);
+         }
+
+         return themeQuestions;
+      }
    }
 
    public Game() {
       for(QuestionTheme theme : QuestionTheme.values()) {
-         generateThemeQuestions(theme);
+         this.questions.put(theme, theme.generateThemeQuestions());
       }
       generateCells(12);
-   }
-
-   public void generateThemeQuestions(QuestionTheme theme) {
-      var themeQuestions = new LinkedList<String>();
-      this.questions.put(theme, themeQuestions);
-
-      for (int i = 0; i < 50; i++) {
-         themeQuestions.add(theme.name() + " Question " + i);
-      }
    }
 
    public void generateCells(int cellCount) {
@@ -75,7 +86,7 @@ public class Game implements IGame {
       System.out.println(player
               + "'s new location is "
               + (player.place+1));
-      System.out.println("The category is " + currentCategory().name());
+      System.out.println("The category is " + currentCategory().getText());
       askQuestion();
    }
 
@@ -84,7 +95,7 @@ public class Game implements IGame {
       LinkedList<String> themeQuestions = questions.get(currentTheme);
 
       if(themeQuestions.isEmpty()) {
-         generateThemeQuestions(currentTheme);
+         questions.put(currentTheme, currentTheme.generateThemeQuestions());
       }
 
       System.out.println(themeQuestions.removeFirst());
