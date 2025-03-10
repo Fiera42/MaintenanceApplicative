@@ -3,7 +3,6 @@ package trivia;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -73,10 +72,10 @@ public class GameTest {
 	public void testPlayer(){
 		Player p1 = new Player("p1");
 
-		assertEquals("p1", p1.name);
-		assertEquals(0, p1.place);
-		assertEquals(0, p1.purse);
-		assertFalse(p1.inPenaltyBox);
+		assertEquals("p1", p1.getName());
+		assertEquals(0, p1.getPlace());
+		assertEquals(0, p1.getPurse());
+		assertFalse(p1.isInPenaltyBox());
 		assertEquals("p1", p1.toString());
 	}
 
@@ -89,6 +88,30 @@ public class GameTest {
 			for(int i = 0; i < questions.size(); i++) {
 				assertEquals(theme.getText() + " Question " + i, questions.get(i));
 			}
+		}
+	}
+
+	@Test
+	@DisplayName("Game cells generation")
+	public void TestGameCellsGeneration() {
+		var cells = Game.generateCells(12);
+		var expectedCells = new Game.QuestionTheme[] {
+				Game.QuestionTheme.POP,
+				Game.QuestionTheme.SCIENCE,
+				Game.QuestionTheme.SPORTS,
+				Game.QuestionTheme.ROCK,
+				Game.QuestionTheme.POP,
+				Game.QuestionTheme.SCIENCE,
+				Game.QuestionTheme.SPORTS,
+				Game.QuestionTheme.ROCK,
+				Game.QuestionTheme.POP,
+				Game.QuestionTheme.SCIENCE,
+				Game.QuestionTheme.SPORTS,
+				Game.QuestionTheme.ROCK
+		};
+
+		for(int i = 0; i < expectedCells.length; i++) {
+			assertEquals(expectedCells[i], cells[i]);
 		}
 	}
 }
