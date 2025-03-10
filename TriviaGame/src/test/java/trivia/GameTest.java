@@ -69,7 +69,7 @@ public class GameTest {
 	}
 
 	@Test
-	@DisplayName("Player classe generation")
+	@DisplayName("Player class generation")
 	public void testPlayer(){
 		Player p1 = new Player("p1");
 
