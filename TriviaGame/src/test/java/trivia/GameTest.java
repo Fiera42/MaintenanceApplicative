@@ -91,4 +91,28 @@ public class GameTest {
 			}
 		}
 	}
+
+	@Test
+	@DisplayName("Game cells generation")
+	public void TestGameCellsGeneration() {
+		var cells = Game.generateCells(12);
+		var expectedCells = new Game.QuestionTheme[] {
+				Game.QuestionTheme.POP,
+				Game.QuestionTheme.SCIENCE,
+				Game.QuestionTheme.SPORTS,
+				Game.QuestionTheme.ROCK,
+				Game.QuestionTheme.POP,
+				Game.QuestionTheme.SCIENCE,
+				Game.QuestionTheme.SPORTS,
+				Game.QuestionTheme.ROCK,
+				Game.QuestionTheme.POP,
+				Game.QuestionTheme.SCIENCE,
+				Game.QuestionTheme.SPORTS,
+				Game.QuestionTheme.ROCK
+		};
+
+		for(int i = 0; i < expectedCells.length; i++) {
+			assertEquals(expectedCells[i], cells[i]);
+		}
+	}
 }

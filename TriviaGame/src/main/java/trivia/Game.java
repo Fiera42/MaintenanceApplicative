@@ -41,18 +41,20 @@ public class Game implements IGame {
       for(QuestionTheme theme : QuestionTheme.values()) {
          this.questions.put(theme, theme.generateThemeQuestions());
       }
-      generateCells(12);
+      cells = generateCells(12);
    }
 
-   public void generateCells(int cellCount) {
-      cells = new QuestionTheme[cellCount];
+   public static QuestionTheme[] generateCells(int cellCount) {
+      var res = new QuestionTheme[cellCount];
       var themes = QuestionTheme.values();
 
       int themeIndex = 0;
       for (int i = 0; i < cellCount; i++) {
-         cells[i] = themes[themeIndex++];
+         res[i] = themes[themeIndex++];
          themeIndex %= themes.length;
       }
+
+      return res;
    }
 
    public boolean addPlayer(String playerName) {
