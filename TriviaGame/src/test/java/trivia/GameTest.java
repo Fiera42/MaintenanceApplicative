@@ -63,4 +63,15 @@ public class GameTest {
 
 		return new String(baos.toByteArray());
 	}
+
+	@Test
+	public void testPlayer(){
+		Player p1 = new Player("p1");
+
+		assertEquals("p1", p1.name);
+		assertEquals(0, p1.place);
+		assertEquals(0, p1.purse);
+		assertEquals(false, p1.inPenaltyBox);
+		assertEquals("p1", p1.toString());
+	}
 }
