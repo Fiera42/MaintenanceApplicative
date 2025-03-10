@@ -134,12 +134,11 @@ public class GameTest {
 		}
 
 		String output = baos.toString();
-		String expected = """
-				p1 was added\r
-				They are player number 1\r
-				p2 was added\r
-				They are player number 2\r
-				""";
+        String expected = "p1 was added" + System.lineSeparator() +
+                "They are player number 1" + System.lineSeparator() +
+                "p2 was added" + System.lineSeparator() +
+                "They are player number 2" + System.lineSeparator();
+
 		assertEquals(expected, output);
 
         var players = game.getPlayers();
@@ -166,14 +165,12 @@ public class GameTest {
         }
 
         String output = baos.toString();
-        String expected = """
-				p1 was added\r
-				They are player number 1\r
-				p2 was added\r
-				They are player number 2\r
-				Question was incorrectly answered\r
-				p1 was sent to the penalty box\r
-				""";
+        String expected = "p1 was added" + System.lineSeparator() +
+                "They are player number 1" + System.lineSeparator() +
+                "p2 was added" + System.lineSeparator() +
+                "They are player number 2" + System.lineSeparator() +
+                "Question was incorrectly answered" + System.lineSeparator() +
+                "p1 was sent to the penalty box" + System.lineSeparator();
         assertEquals(expected, output);
 
         var players = game.getPlayers();
