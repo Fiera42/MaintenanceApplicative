@@ -1,15 +1,15 @@
 package trivia.game;
 
 import trivia.IGame;
+import trivia.utils.CircularLinkedList;
 
 import java.util.*;
 
 public class Game implements IGame {
 
-   ArrayList<Player> players = new ArrayList<>();
+   CircularLinkedList<Player> players = new CircularLinkedList<>();
    QuestionTheme[] cells;
    Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
-   int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
@@ -33,14 +33,14 @@ public class Game implements IGame {
    }
 
    public boolean addPlayer(String playerName) {
-      players.add(new Player(playerName));
+      players.addLast(new Player(playerName));
       System.out.println(playerName + " was added");
       System.out.println("They are player number " + players.size());
       return true;
    }
 
    public void roll(int roll) {
-      var player = players.get(this.currentPlayer);
+      var player = players.getHead();
 
       System.out.println(player + " is the current player");
       System.out.println("They have rolled a " + roll);
@@ -80,45 +80,42 @@ public class Game implements IGame {
    }
 
    private QuestionTheme currentCategory() {
-      return cells[players.get(currentPlayer).getPlace()];
+      return cells[players.getHead().getPlace()];
    }
 
    public boolean handleCorrectAnswer() {
-      Player player = players.get(currentPlayer);
+      Player player = players.getHead();
 
       if(player.isInPenaltyBox() && !isGettingOutOfPenaltyBox) {
-         currentPlayer++;
-         currentPlayer %= players.size();
+         players.next();
          return true;
       }
 
       System.out.println("Answer was correct!!!!");
       player.setPurse(player.getPurse() + 1);
-      System.out.println(players.get(currentPlayer)
+      System.out.println(players.getHead()
               + " now has "
               + player.getPurse()
               + " Gold Coins.");
 
       boolean winner = didPlayerWin();
-      currentPlayer++;
-      currentPlayer %= players.size();
+      players.next();
 
       return winner;
    }
 
    public boolean wrongAnswer() {
-      Player player = players.get(currentPlayer);
+      Player player = players.getHead();
       System.out.println("Question was incorrectly answered");
-      System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+      System.out.println(players.getHead() + " was sent to the penalty box");
       player.setInPenaltyBox(true);
 
-      currentPlayer++;
-      currentPlayer %= players.size();
+      players.next();
       return true;
    }
 
    private boolean didPlayerWin() {
-      Player player = players.get(currentPlayer);
+      Player player = players.getHead();
       return !(player.getPurse() == 6);
    }
 }
