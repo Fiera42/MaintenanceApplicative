@@ -1,9 +1,6 @@
 
 package trivia;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
@@ -15,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import trivia.game.Game;
 import trivia.game.Player;
 import trivia.game.QuestionTheme;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Testing 'Game' class for...")
 public class GameTest {
@@ -142,5 +141,44 @@ public class GameTest {
 				They are player number 2\r
 				""";
 		assertEquals(expected, output);
+
+        var players = game.getPlayers();
+        assertEquals(2, players.size());
+        assertEquals(players.next().getName(), "p1");
+        assertEquals(players.getHead().getName(), "p2");
 	}
+
+    @Test
+    @DisplayName("Wrong answer")
+    public void TestWrongAnswer() {
+        Game game = new Game();
+
+        PrintStream old = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (PrintStream inmemory = new PrintStream(baos)) {
+            // WARNING: System.out.println() doesn't work in this try {} as the sysout is captured and recorded in memory.
+            System.setOut(inmemory);
+            game.addPlayer("p1");
+            game.addPlayer("p2");
+            game.wrongAnswer();
+        } finally {
+            System.setOut(old);
+        }
+
+        String output = baos.toString();
+        String expected = """
+				p1 was added\r
+				They are player number 1\r
+				p2 was added\r
+				They are player number 2\r
+				Question was incorrectly answered\r
+				p1 was sent to the penalty box\r
+				""";
+        assertEquals(expected, output);
+
+        var players = game.getPlayers();
+        assertEquals(2, players.size());
+        assertFalse(players.next().isInPenaltyBox());
+        assertTrue(players.next().isInPenaltyBox());
+    }
 }

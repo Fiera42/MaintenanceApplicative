@@ -118,4 +118,8 @@ public class Game implements IGame {
       Player player = players.getHead();
       return !(player.getPurse() == 6);
    }
+
+   public CircularLinkedList<Player> getPlayers() {
+      return players;
+   }
 }
