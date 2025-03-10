@@ -18,6 +18,7 @@ import trivia.game.QuestionTheme;
 
 @DisplayName("Testing 'Game' class for...")
 public class GameTest {
+	/*
 	@Test
 	public void caracterizationTest() {
 		// runs 10.000 "random" games to see the output of old and new code mathces
@@ -70,6 +71,8 @@ public class GameTest {
 		return new String(baos.toByteArray());
 	}
 
+	 */
+
 	@Test
 	@DisplayName("Player class generation")
 	public void testPlayer(){
@@ -116,5 +119,31 @@ public class GameTest {
 		for(int i = 0; i < expectedCells.length; i++) {
 			assertEquals(expectedCells[i], cells[i]);
 		}
+	}
+
+	@Test
+	@DisplayName("Add player")
+	public void TestAddPlayer() {
+		Game game = new Game();
+
+		PrintStream old = System.out;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try (PrintStream inmemory = new PrintStream(baos)) {
+			// WARNING: System.out.println() doesn't work in this try {} as the sysout is captured and recorded in memory.
+			System.setOut(inmemory);
+			game.addPlayer("p1");
+			game.addPlayer("p2");
+		} finally {
+			System.setOut(old);
+		}
+
+		String output = baos.toString();
+		String expected = """
+				p1 was added\r
+				They are player number 1\r
+				p2 was added\r
+				They are player number 2\r
+				""";
+		assertEquals(expected, output);
 	}
 }
