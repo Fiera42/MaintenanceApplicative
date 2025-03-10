@@ -82,7 +82,7 @@ public class GameTest {
 	@Test
 	@DisplayName("Theme questions generation")
 	public void TestThemeQuestionsGeneration() {
-		for(Game.QuestionTheme theme : Game.QuestionTheme.values()) {
+		for(QuestionTheme theme : QuestionTheme.values()) {
 			List<String> questions = theme.generateThemeQuestions();
 
 			for(int i = 0; i < questions.size(); i++) {
@@ -95,19 +95,19 @@ public class GameTest {
 	@DisplayName("Game cells generation")
 	public void TestGameCellsGeneration() {
 		var cells = Game.generateCells(12);
-		var expectedCells = new Game.QuestionTheme[] {
-				Game.QuestionTheme.POP,
-				Game.QuestionTheme.SCIENCE,
-				Game.QuestionTheme.SPORTS,
-				Game.QuestionTheme.ROCK,
-				Game.QuestionTheme.POP,
-				Game.QuestionTheme.SCIENCE,
-				Game.QuestionTheme.SPORTS,
-				Game.QuestionTheme.ROCK,
-				Game.QuestionTheme.POP,
-				Game.QuestionTheme.SCIENCE,
-				Game.QuestionTheme.SPORTS,
-				Game.QuestionTheme.ROCK
+		var expectedCells = new QuestionTheme[] {
+				QuestionTheme.POP,
+				QuestionTheme.SCIENCE,
+				QuestionTheme.SPORTS,
+				QuestionTheme.ROCK,
+				QuestionTheme.POP,
+				QuestionTheme.SCIENCE,
+				QuestionTheme.SPORTS,
+				QuestionTheme.ROCK,
+				QuestionTheme.POP,
+				QuestionTheme.SCIENCE,
+				QuestionTheme.SPORTS,
+				QuestionTheme.ROCK
 		};
 
 		for(int i = 0; i < expectedCells.length; i++) {
