@@ -2,8 +2,6 @@ package trivia;
 
 import java.util.*;
 
-// REFACTOR ME
-// BLABLA
 public class Game implements IGame {
 
    ArrayList<Player> players = new ArrayList<>();
@@ -71,16 +69,12 @@ public class Game implements IGame {
          }
       }
 
-      moveAndAskQuestion(roll, player);
-   }
-
-   private void moveAndAskQuestion(int roll, Player player) {
       player.place = player.place + roll;
       player.place %= cells.length;
 
       System.out.println(player
-                         + "'s new location is "
-                         + (player.place+1));
+              + "'s new location is "
+              + (player.place+1));
       System.out.println("The category is " + currentCategory().name());
       askQuestion();
    }
@@ -96,7 +90,6 @@ public class Game implements IGame {
       System.out.println(themeQuestions.removeFirst());
    }
 
-
    private QuestionTheme currentCategory() {
       return cells[players.get(currentPlayer).place];
    }
@@ -110,20 +103,16 @@ public class Game implements IGame {
          return true;
       }
 
-      return handleCorrectAwnser(player);
-   }
-
-   private boolean handleCorrectAwnser(Player player) {
       System.out.println("Answer was correct!!!!");
       player.purse++;
       System.out.println(players.get(currentPlayer)
-                         + " now has "
-                         + player.purse
-                         + " Gold Coins.");
+              + " now has "
+              + player.purse
+              + " Gold Coins.");
 
       boolean winner = didPlayerWin();
       currentPlayer++;
-      if (currentPlayer == players.size()) currentPlayer = 0;
+      currentPlayer %= players.size();
 
       return winner;
    }
@@ -135,10 +124,9 @@ public class Game implements IGame {
       player.inPenaltyBox = true;
 
       currentPlayer++;
-      if (currentPlayer == players.size()) currentPlayer = 0;
+      currentPlayer %= players.size();
       return true;
    }
-
 
    private boolean didPlayerWin() {
       Player player = players.get(currentPlayer);
