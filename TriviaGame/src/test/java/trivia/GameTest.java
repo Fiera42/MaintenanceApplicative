@@ -2,6 +2,8 @@
 package trivia;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -67,16 +69,18 @@ public class GameTest {
 	}
 
 	@Test
+	@DisplayName("Player classe generation")
 	public void testPlayer(){
 		Player p1 = new Player("p1");
 
 		assertEquals("p1", p1.name);
 		assertEquals(0, p1.place);
 		assertEquals(0, p1.purse);
-		assertEquals(false, p1.inPenaltyBox);
+		assertFalse(p1.inPenaltyBox);
 		assertEquals("p1", p1.toString());
 	}
 
+	@Test
 	@DisplayName("Theme questions generation")
 	public void TestThemeQuestionsGeneration() {
 		for(Game.QuestionTheme theme : Game.QuestionTheme.values()) {
