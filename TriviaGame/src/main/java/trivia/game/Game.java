@@ -2,6 +2,7 @@ package trivia.game;
 
 import trivia.IGame;
 import trivia.utils.CircularLinkedList;
+import trivia.utils.CircularLinkedListNode;
 
 import java.util.*;
 
@@ -12,12 +13,14 @@ public class Game implements IGame {
    private final QuestionTheme[] cells;
    private final Map<QuestionTheme, LinkedList<String>> questions = new HashMap<>();
    private boolean isGettingOutOfPenaltyBox;
+   private boolean isGameRunning;
 
    public Game() {
       for(QuestionTheme theme : QuestionTheme.values()) {
          this.questions.put(theme, theme.generateThemeQuestions());
       }
       cells = generateCells(12);
+      isGameRunning = false;
    }
 
    public static QuestionTheme[] generateCells(int cellCount) {
@@ -34,7 +37,10 @@ public class Game implements IGame {
    }
 
    public boolean addPlayer(String playerName) {
-      if(players.size() >= 6) return false;
+      var playerSize = players.size();
+      if(playerSize >= 6) return false;
+      if(isGameRunning) return false;
+      if(players.anyMatch((player -> player.getName().equals(playerName)))) return false;
 
       players.addLast(new Player(playerName));
       System.out.println(playerName + " was added");
@@ -43,6 +49,8 @@ public class Game implements IGame {
    }
 
    public void roll(int roll) {
+      isGameRunning = true;
+
       var player = players.getHead();
 
       System.out.println(player + " is the current player");
@@ -72,6 +80,8 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
+      isGameRunning = true;
+
       QuestionTheme currentTheme = currentCategory();
       LinkedList<String> themeQuestions = questions.get(currentTheme);
 
@@ -87,6 +97,8 @@ public class Game implements IGame {
    }
 
    public boolean handleCorrectAnswer() {
+      isGameRunning = true;
+
       Player player = players.getHead();
 
       if(player.isInPenaltyBox() && !isGettingOutOfPenaltyBox) {
@@ -108,6 +120,8 @@ public class Game implements IGame {
    }
 
    public boolean wrongAnswer() {
+      isGameRunning = true;
+
       Player player = players.getHead();
       System.out.println("Question was incorrectly answered");
       System.out.println(players.getHead() + " was sent to the penalty box");

@@ -102,14 +102,14 @@ public class GameTest {
 				QuestionTheme.SCIENCE,
 				QuestionTheme.SPORTS,
 				QuestionTheme.ROCK,
+                QuestionTheme.GEOGRAPHY,
 				QuestionTheme.POP,
 				QuestionTheme.SCIENCE,
 				QuestionTheme.SPORTS,
 				QuestionTheme.ROCK,
+                QuestionTheme.GEOGRAPHY,
 				QuestionTheme.POP,
-				QuestionTheme.SCIENCE,
-				QuestionTheme.SPORTS,
-				QuestionTheme.ROCK
+				QuestionTheme.SCIENCE
 		};
 
 		for(int i = 0; i < expectedCells.length; i++) {
@@ -129,6 +129,7 @@ public class GameTest {
 			System.setOut(inmemory);
 			game.addPlayer("p1");
 			game.addPlayer("p2");
+            game.addPlayer("p3");
 		} finally {
 			System.setOut(old);
 		}
@@ -137,14 +138,17 @@ public class GameTest {
         String expected = "p1 was added" + System.lineSeparator() +
                 "They are player number 1" + System.lineSeparator() +
                 "p2 was added" + System.lineSeparator() +
-                "They are player number 2" + System.lineSeparator();
+                "They are player number 2" + System.lineSeparator() +
+                "p3 was added" + System.lineSeparator() +
+                "They are player number 3" + System.lineSeparator();
 
 		assertEquals(expected, output);
 
         var players = game.getPlayers();
-        assertEquals(2, players.size());
+        assertEquals(3, players.size());
         assertEquals(players.next().getName(), "p1");
-        assertEquals(players.getHead().getName(), "p2");
+        assertEquals(players.next().getName(), "p2");
+        assertEquals(players.next().getName(), "p3");
 	}
 
     @Test
@@ -177,5 +181,20 @@ public class GameTest {
         assertEquals(2, players.size());
         assertFalse(players.next().isInPenaltyBox());
         assertTrue(players.next().isInPenaltyBox());
+    }
+
+    @Test
+    @DisplayName("Players can't have the same name")
+    public void TestPlayersCanNotHaveSameName() {
+        Game game = new Game();
+        game.addPlayer("p1");
+        assertTrue(game.addPlayer("p2"));
+        assertTrue(game.addPlayer("p3"));
+        assertTrue(game.addPlayer("p4"));
+
+        assertFalse(game.addPlayer("p1"));
+        assertFalse(game.addPlayer("p2"));
+        assertFalse(game.addPlayer("p3"));
+        assertFalse(game.addPlayer("p4"));
     }
 }

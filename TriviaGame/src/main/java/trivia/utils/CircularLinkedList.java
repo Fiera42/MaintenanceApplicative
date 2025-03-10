@@ -1,5 +1,7 @@
 package trivia.utils;
 
+import java.util.function.Predicate;
+
 public class CircularLinkedList<T> {
     private CircularLinkedListNode<T> head;
 
@@ -83,5 +85,19 @@ public class CircularLinkedList<T> {
         } while (current != head);
 
         return count;
+    }
+
+    public boolean anyMatch(Predicate<T> predicate) {
+        if (head == null) return false;
+
+        CircularLinkedListNode<T> current = head;
+        do {
+            if (predicate.test(current.getData())) {
+                return true;
+            }
+            current = current.getNext();
+        } while (current != head);
+
+        return false;
     }
 }
