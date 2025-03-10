@@ -18,7 +18,6 @@ import trivia.game.QuestionTheme;
 
 @DisplayName("Testing 'Game' class for...")
 public class GameTest {
-	/*
 	@Test
 	public void caracterizationTest() {
 		// runs 10.000 "random" games to see the output of old and new code mathces
@@ -70,8 +69,6 @@ public class GameTest {
 
 		return new String(baos.toByteArray());
 	}
-
-	 */
 
 	@Test
 	@DisplayName("Player class generation")
