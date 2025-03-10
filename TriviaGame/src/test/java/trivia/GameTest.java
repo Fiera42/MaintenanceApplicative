@@ -75,6 +75,7 @@ public class GameTest {
 		assertEquals(0, p1.purse);
 		assertEquals(false, p1.inPenaltyBox);
 		assertEquals("p1", p1.toString());
+	}
 
 	@DisplayName("Theme questions generation")
 	public void TestThemeQuestionsGeneration() {
