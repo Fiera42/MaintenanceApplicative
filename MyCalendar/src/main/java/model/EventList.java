@@ -13,9 +13,10 @@ public class EventList implements Iterable<Event> {
 
     public List<Event> events = new ArrayList<>();
 
-    public void addEvent(Event event) {
+    public boolean addEvent(Event event) {
         // TODO : check if no conflict
         events.add(event);
+        return true;
     }
 
     @Override
