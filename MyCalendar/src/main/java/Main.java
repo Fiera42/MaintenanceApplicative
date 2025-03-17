@@ -174,7 +174,7 @@ public class Main {
                                 LocalDateTime debutMois = LocalDateTime.of(anneeMois, mois, 1, 0, 0);
                                 LocalDateTime finMois = debutMois.plusMonths(1).minusSeconds(1);
 
-                                afficherListe(calendar.eventsDansPeriode(debutMois, finMois));
+                                afficherListe(calendar.eventsDansPeriod(debutMois, finMois));
                                 break;
 
                             case "3":
@@ -196,7 +196,7 @@ public class Main {
                                         .withHour(0).withMinute(0);
                                 LocalDateTime finSemaine = debutSemaine.plusDays(7).minusSeconds(1);
 
-                                afficherListe(calendar.eventsDansPeriode(debutSemaine, finSemaine));
+                                afficherListe(calendar.eventsDansPeriod(debutSemaine, finSemaine));
                                 break;
 
                             case "4":
@@ -222,7 +222,7 @@ public class Main {
                                 LocalDateTime debutJour = LocalDateTime.of(anneeJour, moisJour, jour, 0, 0);
                                 LocalDateTime finJour = debutJour.plusDays(1).minusSeconds(1);
 
-                                afficherListe(calendar.eventsDansPeriode(debutJour, finJour));
+                                afficherListe(calendar.eventsDansPeriod(debutJour, finJour));
                                 break;
                         }
                         break;

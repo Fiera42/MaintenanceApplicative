@@ -1,5 +1,7 @@
 package model;
 
+import model.events.PeriodicEvent;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,14 +34,15 @@ public class EventList implements Iterable<Event> {
     }
 
     public boolean conflict(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.dureeMinutes);
-        LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.dureeMinutes);
+        LocalDateTime fin1 = e1.start.plusMinutes(e1.duration);
+        LocalDateTime fin2 = e2.start.plusMinutes(e2.duration);
 
-        if (e1.type.equals("PERIODIQUE") || e2.type.equals("PERIODIQUE")) {
+
+        if(e1 instanceof PeriodicEvent || e2 instanceof PeriodicEvent) {
             return false; // Simplification abusive
         }
 
-        if (e1.dateDebut.isBefore(fin2) && fin1.isAfter(e2.dateDebut)) {
+        if (e1.start.isBefore(fin2) && fin1.isAfter(e2.start)) {
             return true;
         }
         return false;
