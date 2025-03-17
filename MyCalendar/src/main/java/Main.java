@@ -1,3 +1,6 @@
+import model.Calendar;
+import model.Event;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
@@ -7,7 +10,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        CalendarManager calendar = new CalendarManager();
+        Calendar calendar = new Calendar();
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
 
