@@ -45,12 +45,14 @@ public class OldMain {
                         utilisateur = scanner.nextLine();
 
                         if (utilisateur.equals("Roger")) {
+                            System.out.print("Mot de passe: ");
                             String motDePasse = scanner.nextLine();
                             if (!motDePasse.equals("Chat")) {
                                 utilisateur = null;
                             }
                         } else {
                             if (utilisateur.equals("Pierre")) {
+                                System.out.print("Mot de passe: ");
                                 String motDePasse = scanner.nextLine();
                                 if (!motDePasse.equals("KiRouhl")) {
                                     utilisateur = null;

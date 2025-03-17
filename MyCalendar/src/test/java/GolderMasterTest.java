@@ -75,6 +75,16 @@ public class GolderMasterTest {
             writer.println("1");
             writer.println("Fiera");
             writer.println("666");
+            writer.println("5");
+            writer.println("O");
+            writer.println("1");
+            writer.println("Roger");
+            writer.println("Chat");
+            writer.println("5");
+            writer.println("O");
+            writer.println("1");
+            writer.println("Pierre");
+            writer.println("KiRouhl");
 
             int rndValue;
             for(int i = 0; i < 500; i++) {
