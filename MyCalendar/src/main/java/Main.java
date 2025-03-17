@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
@@ -315,11 +316,17 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEvent("REUNION", titre2, utilisateur,
-                                LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
-                                lieu, participants, 0);
+                        try {
+                            calendar.ajouterEvent("REUNION", titre2, utilisateur,
+                                    LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
+                                    lieu, participants, 0);
 
-                        System.out.println("Événement ajouté.");
+                            System.out.println("Événement ajouté.");
+                        }
+                        catch (DateTimeException e) {
+                            System.out.print("Problème : " + e.getMessage());
+                        }
+
                         break;
 
                     case "4":
@@ -356,7 +363,7 @@ public class Main {
                             System.out.print("Minute début (0-59) : ");
                             minute3 = Integer.parseInt(scanner.nextLine());
                         }
-                        System.out.print("Frequence (en jours) : ");
+                        System.out.print("Fréquence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
                         calendar.ajouterEvent("PERIODIQUE", titre3, utilisateur,
