@@ -1,15 +1,16 @@
+package oldApp;
+
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Main {
+public class OldMain {
     public static void main(String[] args) {
-        CalendarManager calendar = new CalendarManager();
+        OldCalendarManager calendar = new OldCalendarManager();
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
-        boolean continuer = true;
 
         String utilisateurs[] = new String[99];
         String motsDePasses[] = new String[99];
@@ -54,12 +55,34 @@ public class Main {
                                     utilisateur = null;
                                 }
                             } else {
+                                boolean userExist = false;
+                                for (int i = 0; i < nbUtilisateurs; i++) {
+                                    if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
+                                        userExist = true;
+                                        break;
+                                    }
+                                }
+
+                                while (!userExist) {
+                                    System.out.print("Nom d'utilisateur: ");
+                                    utilisateur = scanner.nextLine();
+
+                                    for (int i = 0; i < nbUtilisateurs; i++) {
+                                        if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
+                                            userExist = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
                                 System.out.print("Mot de passe: ");
                                 String motDePasse = scanner.nextLine();
 
-                                for (int i = 0; i < nbUtilisateurs; i = i + 1) {
-                                    if (utilisateurs[i].equals(utilisateur) && motsDePasses[i].equals(motDePasse)) {
-                                        utilisateur = utilisateurs[i];
+                                for (int i = 0; i < nbUtilisateurs; i++) {
+                                    if (utilisateurs[i].equals(utilisateur)) {
+                                        if(!motsDePasses[i].equals(motDePasse)) {
+                                            utilisateur = null;
+                                        }
                                     }
                                 }
                             }
@@ -69,13 +92,34 @@ public class Main {
                     case "2":
                         System.out.print("Nom d'utilisateur: ");
                         utilisateur = scanner.nextLine();
+
+                        boolean alreadyExists = false;
+                        for (int i = 0; i < nbUtilisateurs; i++) {
+                            if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
+                                alreadyExists = true;
+                                break;
+                            }
+                        }
+
+                        while (alreadyExists) {
+                            System.out.print("Nom d'utilisateur: ");
+                            utilisateur = scanner.nextLine();
+
+                            alreadyExists = false;
+                            for (int i = 0; i < nbUtilisateurs; i++) {
+                                if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
+                                    alreadyExists = true;
+                                    break;
+                                }
+                            }
+                        }
                         System.out.print("Mot de passe: ");
                         String motDePasse = scanner.nextLine();
                         System.out.print("Répéter mot de passe: ");
                         if (scanner.nextLine().equals(motDePasse)) {
                             utilisateurs[nbUtilisateurs] = utilisateur;
                             motsDePasses[nbUtilisateurs] = motDePasse;
-                            nbUtilisateurs = nbUtilisateurs + 1;
+                            nbUtilisateurs++;
                         } else {
                             System.out.println("Les mots de passes ne correspondent pas...");
                             utilisateur = null;
@@ -83,7 +127,7 @@ public class Main {
                         break;
                 }
             }
-
+            boolean continuer = true;
             while (continuer && utilisateur != null) {
                 System.out.println("\nBonjour, " + utilisateur);
                 System.out.println("=== Menu Gestionnaire d'Événements ===");
@@ -118,6 +162,12 @@ public class Main {
                                 int anneeMois = Integer.parseInt(scanner.nextLine());
                                 System.out.print("Entrez le mois (1-12) : ");
                                 int mois = Integer.parseInt(scanner.nextLine());
+                                if(mois == 0) mois++;
+                                while (mois > 12) {
+                                    System.out.print("Entrez le mois (1-12) : ");
+                                    mois = Integer.parseInt(scanner.nextLine());
+                                    if(mois == 0) mois++;
+                                }
 
                                 LocalDateTime debutMois = LocalDateTime.of(anneeMois, mois, 1, 0, 0);
                                 LocalDateTime finMois = debutMois.plusMonths(1).minusSeconds(1);
@@ -130,6 +180,12 @@ public class Main {
                                 int anneeSemaine = Integer.parseInt(scanner.nextLine());
                                 System.out.print("Entrez le numéro de semaine (1-52) : ");
                                 int semaine = Integer.parseInt(scanner.nextLine());
+                                if(semaine == 0) semaine++;
+                                while (semaine > 52) {
+                                    System.out.print("Entrez le numéro de semaine (1-52) : ");
+                                    semaine = Integer.parseInt(scanner.nextLine());
+                                    if(semaine == 0) semaine++;
+                                }
 
                                 LocalDateTime debutSemaine = LocalDateTime.now()
                                         .withYear(anneeSemaine)
@@ -146,8 +202,20 @@ public class Main {
                                 int anneeJour = Integer.parseInt(scanner.nextLine());
                                 System.out.print("Entrez le mois (1-12) : ");
                                 int moisJour = Integer.parseInt(scanner.nextLine());
+                                if(moisJour == 0) moisJour++;
+                                while (moisJour > 12) {
+                                    System.out.print("Entrez le mois (1-12) : ");
+                                    moisJour = Integer.parseInt(scanner.nextLine());
+                                    if(moisJour == 0) moisJour++;
+                                }
                                 System.out.print("Entrez le jour (1-31) : ");
                                 int jour = Integer.parseInt(scanner.nextLine());
+                                if(jour == 0) jour++;
+                                while (jour > 31) {
+                                    System.out.print("Entrez le jour (1-31) : ");
+                                    jour = Integer.parseInt(scanner.nextLine());
+                                    if(jour == 0) jour++;
+                                }
 
                                 LocalDateTime debutJour = LocalDateTime.of(anneeJour, moisJour, jour, 0, 0);
                                 LocalDateTime finJour = debutJour.plusDays(1).minusSeconds(1);
@@ -165,12 +233,32 @@ public class Main {
                         int annee = Integer.parseInt(scanner.nextLine());
                         System.out.print("Mois (1-12) : ");
                         int moisRdv = Integer.parseInt(scanner.nextLine());
+                        if(moisRdv == 0) moisRdv++;
+                        while (moisRdv > 12) {
+                            System.out.print("Entrez le mois (1-12) : ");
+                            moisRdv = Integer.parseInt(scanner.nextLine());
+                            if(moisRdv == 0) moisRdv++;
+                        }
                         System.out.print("Jour (1-31) : ");
                         int jourRdv = Integer.parseInt(scanner.nextLine());
+                        if(jourRdv == 0) jourRdv++;
+                        while (jourRdv > 31) {
+                            System.out.print("Entrez le jour (1-31) : ");
+                            jourRdv = Integer.parseInt(scanner.nextLine());
+                            if(jourRdv == 0) jourRdv++;
+                        }
                         System.out.print("Heure début (0-23) : ");
                         int heure = Integer.parseInt(scanner.nextLine());
+                        while (heure > 23) {
+                            System.out.print("Heure début (0-23) : ");
+                            heure = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.print("Minute début (0-59) : ");
                         int minute = Integer.parseInt(scanner.nextLine());
+                        while (minute > 59) {
+                            System.out.print("Minute début (0-59) : ");
+                            minute = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
@@ -189,22 +277,41 @@ public class Main {
                         int annee2 = Integer.parseInt(scanner.nextLine());
                         System.out.print("Mois (1-12) : ");
                         int moisRdv2 = Integer.parseInt(scanner.nextLine());
+                        if(moisRdv2 == 0) moisRdv2++;
+                        while (moisRdv2 > 12) {
+                            System.out.print("Entrez le mois (1-12) : ");
+                            moisRdv2 = Integer.parseInt(scanner.nextLine());
+                            if(moisRdv2 == 0) moisRdv2++;
+                        }
                         System.out.print("Jour (1-31) : ");
                         int jourRdv2 = Integer.parseInt(scanner.nextLine());
+                        if(jourRdv2 == 0) jourRdv2++;
+                        while (jourRdv2 > 31) {
+                            System.out.print("Entrez le jour (1-31) : ");
+                            jourRdv2 = Integer.parseInt(scanner.nextLine());
+                            if(jourRdv2 == 0) jourRdv2++;
+                        }
                         System.out.print("Heure début (0-23) : ");
                         int heure2 = Integer.parseInt(scanner.nextLine());
+                        while (heure2 > 23) {
+                            System.out.print("Heure début (0-23) : ");
+                            heure2 = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.print("Minute début (0-59) : ");
                         int minute2 = Integer.parseInt(scanner.nextLine());
+                        while (minute2 > 59) {
+                            System.out.print("Minute début (0-59) : ");
+                            minute2 = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.print("Durée (en minutes) : ");
                         int duree2 = Integer.parseInt(scanner.nextLine());
                         System.out.println("Lieu :");
                         String lieu = scanner.nextLine();
                         
                         String participants = utilisateur;
-                        
-                        boolean encore = true;
+
                         System.out.println("Ajouter un participant ? (oui / non)");
-                        while (scanner.nextLine().equals("oui"))
+                        while (scanner.nextLine().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui"))
                         {
                             System.out.print("Participants : " + participants);
                             participants += ", " + scanner.nextLine();
@@ -225,12 +332,32 @@ public class Main {
                         int annee3 = Integer.parseInt(scanner.nextLine());
                         System.out.print("Mois (1-12) : ");
                         int moisRdv3 = Integer.parseInt(scanner.nextLine());
+                        if(moisRdv3 == 0) moisRdv3++;
+                        while (moisRdv3 > 12) {
+                            System.out.print("Entrez le mois (1-12) : ");
+                            moisRdv3 = Integer.parseInt(scanner.nextLine());
+                            if(moisRdv3 == 0) moisRdv3++;
+                        }
                         System.out.print("Jour (1-31) : ");
                         int jourRdv3 = Integer.parseInt(scanner.nextLine());
+                        if(jourRdv3 == 0) jourRdv3++;
+                        while (jourRdv3 > 31) {
+                            System.out.print("Entrez le jour (1-31) : ");
+                            jourRdv3 = Integer.parseInt(scanner.nextLine());
+                            if(jourRdv3 == 0) jourRdv3++;
+                        }
                         System.out.print("Heure début (0-23) : ");
                         int heure3 = Integer.parseInt(scanner.nextLine());
+                        while (heure3 > 23) {
+                            System.out.print("Heure début (0-23) : ");
+                            heure3 = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.print("Minute début (0-59) : ");
                         int minute3 = Integer.parseInt(scanner.nextLine());
+                        while (minute3 > 59) {
+                            System.out.print("Minute début (0-59) : ");
+                            minute3 = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
@@ -243,20 +370,21 @@ public class Main {
 
                     default:
                         System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
-                        continuer = scanner.nextLine().trim().equalsIgnoreCase("oui");
-
-                        utilisateur = null;
+                        if(scanner.nextLine().trim().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui")) {
+                            continuer = false;
+                            utilisateur = null;
+                        }
                 }
             }
         }
     }
 
-    private static void afficherListe(List<Event> evenements) {
+    private static void afficherListe(List<OldEvent> evenements) {
         if (evenements.isEmpty()) {
             System.out.println("Aucun événement trouvé pour cette période.");
         } else {
             System.out.println("Événements trouvés : ");
-            for (Event e : evenements) {
+            for (OldEvent e : evenements) {
                 System.out.println("- " + e.description());
             }
         }

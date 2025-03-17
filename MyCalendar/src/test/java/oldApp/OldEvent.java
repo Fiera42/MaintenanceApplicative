@@ -1,7 +1,8 @@
+package oldApp;
+
 import java.time.LocalDateTime;
 
-// TODO REMOVE ME
-public class Event {
+public class OldEvent {
     public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
     public String title;
     public String proprietaire;
@@ -11,8 +12,8 @@ public class Event {
     public String participants; // séparés par virgules (pour REUNION uniquement)
     public int frequenceJours; // uniquement pour PERIODIQUE
 
-    public Event(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                 String lieu, String participants, int frequenceJours) {
+    public OldEvent(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
+                    String lieu, String participants, int frequenceJours) {
         this.type = type;
         this.title = title;
         this.proprietaire = proprietaire;
