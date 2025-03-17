@@ -1,5 +1,7 @@
 import model.Calendar;
 import model.Event;
+import model.users.User;
+import model.users.UserList;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -12,126 +14,67 @@ public class Main {
     public static void main(String[] args) {
         Calendar calendar = new Calendar();
         Scanner scanner = new Scanner(System.in);
-        String utilisateur = null;
 
-        String utilisateurs[] = new String[99];
-        String motsDePasses[] = new String[99];
-        int nbUtilisateurs = 0;
+        User currentUser = null;
+        UserList userList = new UserList();
+        userList.addUser("Roger", "Chat");
+        userList.addUser("Pierre", "KiRouhl");
 
         while (true) {
+            System.out.println("  _____         _                   _                __  __");
+            System.out.println(" / ____|       | |                 | |              |  \\/  |");
+            System.out.println(
+                    "| |       __ _ | |  ___  _ __    __| |  __ _  _ __  | \\  / |  __ _  _ __    __ _   __ _   ___  _ __");
+            System.out.println(
+                    "| |      / _` || | / _ \\| '_ \\  / _` | / _` || '__| | |\\/| | / _` || '_ \\  / _` | / _` | / _ \\| '__|");
+            System.out.println(
+                    "| |____ | (_| || ||  __/| | | || (_| || (_| || |    | |  | || (_| || | | || (_| || (_| ||  __/| |");
+            System.out.println(
+                    " \\_____| \\__,_||_| \\___||_| |_| \\__,_| \\__,_||_|    |_|  |_| \\__,_||_| |_| \\__,_| \\__, | \\___||_|");
+            System.out.println(
+                    "                                                                                   __/ |");
+            System.out.println(
+                    "                                                                                  |___/");
 
-            if (utilisateur == null) {
-                System.out.println("  _____         _                   _                __  __");
-                System.out.println(" / ____|       | |                 | |              |  \\/  |");
-                System.out.println(
-                        "| |       __ _ | |  ___  _ __    __| |  __ _  _ __  | \\  / |  __ _  _ __    __ _   __ _   ___  _ __");
-                System.out.println(
-                        "| |      / _` || | / _ \\| '_ \\  / _` | / _` || '__| | |\\/| | / _` || '_ \\  / _` | / _` | / _ \\| '__|");
-                System.out.println(
-                        "| |____ | (_| || ||  __/| | | || (_| || (_| || |    | |  | || (_| || | | || (_| || (_| ||  __/| |");
-                System.out.println(
-                        " \\_____| \\__,_||_| \\___||_| |_| \\__,_| \\__,_||_|    |_|  |_| \\__,_||_| |_| \\__,_| \\__, | \\___||_|");
-                System.out.println(
-                        "                                                                                   __/ |");
-                System.out.println(
-                        "                                                                                  |___/");
+            System.out.println("1 - Se connecter");
+            System.out.println("2 - Créer un compte");
+            System.out.println("Choix : ");
 
-                System.out.println("1 - Se connecter");
-                System.out.println("2 - Créer un compte");
-                System.out.println("Choix : ");
-
-                switch (scanner.nextLine()) {
-                    case "1":
+            switch (scanner.nextLine()) {
+                case "1":
+                    System.out.print("Nom d'utilisateur: ");
+                    String userName = scanner.nextLine();
+                    while (!userList.userExists(userName)) {
                         System.out.print("Nom d'utilisateur: ");
-                        utilisateur = scanner.nextLine();
+                        userName = scanner.nextLine();
+                    }
 
-                        if (utilisateur.equals("Roger")) {
-                            String motDePasse = scanner.nextLine();
-                            if (!motDePasse.equals("Chat")) {
-                                utilisateur = null;
-                            }
-                        } else {
-                            if (utilisateur.equals("Pierre")) {
-                                String motDePasse = scanner.nextLine();
-                                if (!motDePasse.equals("KiRouhl")) {
-                                    utilisateur = null;
-                                }
-                            } else {
-                                boolean userExist = false;
-                                for (int i = 0; i < nbUtilisateurs; i++) {
-                                    if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
-                                        userExist = true;
-                                        break;
-                                    }
-                                }
+                    System.out.print("Mot de passe: ");
+                    String motDePasse = scanner.nextLine();
+                    currentUser = userList.login(userName, motDePasse);
+                    break;
 
-                                while (!userExist) {
-                                    System.out.print("Nom d'utilisateur: ");
-                                    utilisateur = scanner.nextLine();
-
-                                    for (int i = 0; i < nbUtilisateurs; i++) {
-                                        if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
-                                            userExist = true;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                System.out.print("Mot de passe: ");
-                                String motDePasse = scanner.nextLine();
-
-                                for (int i = 0; i < nbUtilisateurs; i++) {
-                                    if (utilisateurs[i].equals(utilisateur)) {
-                                        if(!motsDePasses[i].equals(motDePasse)) {
-                                            utilisateur = null;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        break;
-
-                    case "2":
+                case "2":
+                    System.out.print("Nom d'utilisateur: ");
+                    String userName2 = scanner.nextLine();
+                    while (userList.userExists(userName2)) {
                         System.out.print("Nom d'utilisateur: ");
-                        utilisateur = scanner.nextLine();
+                        userName2 = scanner.nextLine();
+                    }
 
-                        boolean alreadyExists = false;
-                        for (int i = 0; i < nbUtilisateurs; i++) {
-                            if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
-                                alreadyExists = true;
-                                break;
-                            }
-                        }
-
-                        while (alreadyExists) {
-                            System.out.print("Nom d'utilisateur: ");
-                            utilisateur = scanner.nextLine();
-
-                            alreadyExists = false;
-                            for (int i = 0; i < nbUtilisateurs; i++) {
-                                if (utilisateurs[i] != null && utilisateurs[i].equals(utilisateur)) {
-                                    alreadyExists = true;
-                                    break;
-                                }
-                            }
-                        }
-                        System.out.print("Mot de passe: ");
-                        String motDePasse = scanner.nextLine();
-                        System.out.print("Répéter mot de passe: ");
-                        if (scanner.nextLine().equals(motDePasse)) {
-                            utilisateurs[nbUtilisateurs] = utilisateur;
-                            motsDePasses[nbUtilisateurs] = motDePasse;
-                            nbUtilisateurs++;
-                        } else {
-                            System.out.println("Les mots de passes ne correspondent pas...");
-                            utilisateur = null;
-                        }
-                        break;
-                }
+                    System.out.print("Mot de passe: ");
+                    String motDePasse2 = scanner.nextLine();
+                    System.out.print("Répéter mot de passe: ");
+                    if (scanner.nextLine().equals(motDePasse2)) {
+                        currentUser = userList.addUser(userName2, motDePasse2);
+                    } else {
+                        System.out.println("Les mots de passes ne correspondent pas...");
+                    }
+                    break;
             }
             boolean continuer = true;
-            while (continuer && utilisateur != null) {
-                System.out.println("\nBonjour, " + utilisateur);
+            while (continuer && currentUser != null) {
+                System.out.println("\nBonjour, " + currentUser.name());
                 System.out.println("=== Menu Gestionnaire d'Événements ===");
                 System.out.println("1 - Voir les événements");
                 System.out.println("2 - Ajouter un rendez-vous perso");
@@ -264,7 +207,7 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("RDV_PERSONNEL", titre, utilisateur,
+                        calendar.ajouterEvent("RDV_PERSONNEL", titre, currentUser.name(),
                                 LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
                                 "", "", 0);
 
@@ -310,7 +253,7 @@ public class Main {
                         System.out.println("Lieu :");
                         String lieu = scanner.nextLine();
 
-                        String participants = utilisateur;
+                        String participants = currentUser.name();
 
                         System.out.println("Ajouter un participant ? (oui / non)");
                         while (scanner.nextLine().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui"))
@@ -320,7 +263,7 @@ public class Main {
                         }
 
                         try {
-                            calendar.ajouterEvent("REUNION", titre2, utilisateur,
+                            calendar.ajouterEvent("REUNION", titre2, currentUser.name(),
                                     LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
                                     lieu, participants, 0);
 
@@ -369,7 +312,7 @@ public class Main {
                         System.out.print("Fréquence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("PERIODIQUE", titre3, utilisateur,
+                        calendar.ajouterEvent("PERIODIQUE", titre3, currentUser.name(),
                                 LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
                                 "", "", frequence);
 
@@ -380,7 +323,7 @@ public class Main {
                         System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
                         if(scanner.nextLine().trim().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui")) {
                             continuer = false;
-                            utilisateur = null;
+                            currentUser = null;
                         }
                 }
             }
