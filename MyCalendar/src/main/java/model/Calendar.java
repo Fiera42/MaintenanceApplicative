@@ -2,7 +2,7 @@ package model;
 
 import model.events.PeriodicEvent;
 import model.events.PersonalEvent;
-import model.events.ReunionEvent;
+import model.events.MeetingEvent;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Calendar {
 
         Event e = switch (type) {
             case "PERIODIQUE" -> new PeriodicEvent(title, owner, start, duration, frequency);
-            case "REUNION" -> new ReunionEvent(title, owner, start, duration, place, participants);
+            case "REUNION" -> new MeetingEvent(title, owner, start, duration, place, participants);
             case "RDV_PERSONNEL" -> new PersonalEvent(title, owner, start, duration);
             default -> null;
         };

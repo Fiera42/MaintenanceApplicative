@@ -4,11 +4,11 @@ import model.Event;
 
 import java.time.LocalDateTime;
 
-public class ReunionEvent extends Event {
+public class MeetingEvent extends Event {
     public String place;
     public String participants; // séparés par virgules (pour REUNION uniquement)
 
-    public ReunionEvent(String title, String owner, LocalDateTime start, int duration, String place, String participants) {
+    public MeetingEvent(String title, String owner, LocalDateTime start, int duration, String place, String participants) {
         super(title, owner, start, duration);
         this.place = place;
         this.participants = participants;
