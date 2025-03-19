@@ -13,8 +13,8 @@ public class OldMain {
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
 
-        String utilisateurs[] = new String[99];
-        String motsDePasses[] = new String[99];
+        String[] utilisateurs = new String[99];
+        String[] motsDePasses = new String[99];
         int nbUtilisateurs = 0;
 
         while (true) {
@@ -37,7 +37,7 @@ public class OldMain {
 
                 System.out.println("1 - Se connecter");
                 System.out.println("2 - Créer un compte");
-                System.out.println("Choix : ");
+                System.out.println("Votre choix : ");
 
                 switch (scanner.nextLine()) {
                     case "1":
@@ -139,7 +139,7 @@ public class OldMain {
                 System.out.println("3 - Ajouter une réunion");
                 System.out.println("4 - Ajouter un évènement périodique");
                 System.out.println("5 - Se déconnecter");
-                System.out.print("Votre choix : ");
+                System.out.println("Votre choix : ");
 
                 String choix = scanner.nextLine();
 
@@ -151,7 +151,7 @@ public class OldMain {
                         System.out.println("3 - Afficher les événements d'une SEMAINE précise");
                         System.out.println("4 - Afficher les événements d'un JOUR précis");
                         System.out.println("5 - Retour");
-                        System.out.print("Votre choix : ");
+                        System.out.println("Votre choix : ");
 
                         choix = scanner.nextLine();
 

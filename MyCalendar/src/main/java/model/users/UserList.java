@@ -78,5 +78,4 @@ public class UserList implements Iterable<String> {
             }
         };
     }
-
 }
