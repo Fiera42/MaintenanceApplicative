@@ -8,6 +8,8 @@ public class AuthSystem {
         return instance;
     }
 
+    private AuthSystem() {}
+
     // ------------------------------------------------------- Class
 
     private final UserList userList = new UserList();
