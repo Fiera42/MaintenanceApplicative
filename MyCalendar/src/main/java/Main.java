@@ -1,7 +1,6 @@
 import model.Calendar;
 import model.Event;
-import model.users.User;
-import model.users.UserList;
+import model.users.AuthSystem;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -15,10 +14,9 @@ public class Main {
         Calendar calendar = new Calendar();
         Scanner scanner = new Scanner(System.in);
 
-        User currentUser = null;
-        UserList userList = new UserList();
-        userList.addUser("Roger", "Chat");
-        userList.addUser("Pierre", "KiRouhl");
+        AuthSystem authSystem = new AuthSystem();
+        authSystem.addUser("Roger", "Chat");
+        authSystem.addUser("Pierre", "KiRouhl");
 
         while (true) {
             System.out.println("  _____         _                   _                __  __");
@@ -44,20 +42,20 @@ public class Main {
                 case "1":
                     System.out.print("Nom d'utilisateur: ");
                     String userName = scanner.nextLine();
-                    while (!userList.userExists(userName)) {
+                    while (!authSystem.userExists(userName)) {
                         System.out.print("Nom d'utilisateur: ");
                         userName = scanner.nextLine();
                     }
 
                     System.out.print("Mot de passe: ");
                     String motDePasse = scanner.nextLine();
-                    currentUser = userList.login(userName, motDePasse);
+                    authSystem.login(userName, motDePasse);
                     break;
 
                 case "2":
                     System.out.print("Nom d'utilisateur: ");
                     String userName2 = scanner.nextLine();
-                    while (userList.userExists(userName2)) {
+                    while (authSystem.userExists(userName2)) {
                         System.out.print("Nom d'utilisateur: ");
                         userName2 = scanner.nextLine();
                     }
@@ -66,15 +64,15 @@ public class Main {
                     String motDePasse2 = scanner.nextLine();
                     System.out.print("Répéter mot de passe: ");
                     if (scanner.nextLine().equals(motDePasse2)) {
-                        currentUser = userList.addUser(userName2, motDePasse2);
+                        authSystem.addUserAndConnect(userName2, motDePasse2);
                     } else {
                         System.out.println("Les mots de passes ne correspondent pas...");
                     }
                     break;
             }
             boolean continuer = true;
-            while (continuer && currentUser != null) {
-                System.out.println("\nBonjour, " + currentUser.name());
+            while (continuer && !authSystem.getCurrentUser().equalsIgnoreCase("")) {
+                System.out.println("\nBonjour, " + authSystem.getCurrentUser());
                 System.out.println("=== Menu Gestionnaire d'Événements ===");
                 System.out.println("1 - Voir les événements");
                 System.out.println("2 - Ajouter un rendez-vous perso");
@@ -207,7 +205,7 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("RDV_PERSONNEL", titre, currentUser.name(),
+                        calendar.ajouterEvent("RDV_PERSONNEL", titre, authSystem.getCurrentUser(),
                                 LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
                                 "", "", 0);
 
@@ -253,7 +251,7 @@ public class Main {
                         System.out.println("Lieu :");
                         String lieu = scanner.nextLine();
 
-                        String participants = currentUser.name();
+                        String participants = authSystem.getCurrentUser();
 
                         System.out.println("Ajouter un participant ? (oui / non)");
                         while (scanner.nextLine().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui"))
@@ -263,7 +261,7 @@ public class Main {
                         }
 
                         try {
-                            calendar.ajouterEvent("REUNION", titre2, currentUser.name(),
+                            calendar.ajouterEvent("REUNION", titre2, authSystem.getCurrentUser(),
                                     LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
                                     lieu, participants, 0);
 
@@ -312,7 +310,7 @@ public class Main {
                         System.out.print("Fréquence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("PERIODIQUE", titre3, currentUser.name(),
+                        calendar.ajouterEvent("PERIODIQUE", titre3, authSystem.getCurrentUser(),
                                 LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
                                 "", "", frequence);
 
@@ -323,7 +321,7 @@ public class Main {
                         System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
                         if(scanner.nextLine().trim().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui")) {
                             continuer = false;
-                            currentUser = null;
+                            authSystem.logout();
                         }
                 }
             }
