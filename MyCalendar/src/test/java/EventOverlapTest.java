@@ -1,4 +1,5 @@
 import model.events.MeetingEvent;
+import model.events.PersonalEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -98,5 +99,90 @@ public class EventOverlapTest {
                         periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
                         LocalDateTime.of(2000, 10, 1, 12, 0); (duration=60)"""
                 );
+    }
+
+    @Test
+    @DisplayName("PersonalEvent no overlap")
+    public void personalEventNoOverlap() {
+        var event = new PersonalEvent("title",
+                "owner",
+                LocalDateTime.of(2000, 10, 1, 12, 0),
+                60
+        );
+
+        // Check before the event
+        var periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
+        var periodEnd = LocalDateTime.of(2000, 10, 1, 11, 59);
+        assertFalse(
+                event.isOverlappingWithPeriod(periodStart, periodEnd),
+                """
+                        
+                        Check before the event
+                        periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
+                        periodEnd = LocalDateTime.of(2000, 10, 1, 11, 59);
+                        event = LocalDateTime.of(2000, 10, 1, 12, 0); (duration=60)"""
+        );
+
+        // Check after the event
+        periodStart = LocalDateTime.of(2000, 10, 1, 13, 1);
+        periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
+        assertFalse(
+                event.isOverlappingWithPeriod(periodStart, periodEnd),
+                """
+                        
+                        Check after the event
+                        periodStart = LocalDateTime.of(2000, 10, 1, 13, 1);
+                        periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
+                        event = LocalDateTime.of(2000, 10, 1, 12, 0); (duration=60)"""
+        );
+    }
+
+    @Test
+    @DisplayName("PersonalEvent overlap")
+    public void personalEventOverlap() {
+        var event = new PersonalEvent("title",
+                "owner",
+                LocalDateTime.of(2000, 10, 1, 12, 0),
+                60
+        );
+
+        // Check during the event
+        var periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
+        var periodEnd = LocalDateTime.of(3000, 10, 1, 12, 0);
+        assertTrue(
+                event.isOverlappingWithPeriod(periodStart, periodEnd),
+                """
+                        
+                        Check during the event
+                        periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
+                        periodEnd = LocalDateTime.of(3000, 10, 1, 12, 0);
+                        LocalDateTime.of(2000, 10, 1, 12, 0); (duration=60)"""
+        );
+
+        // Check before the event
+        periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
+        periodEnd = LocalDateTime.of(2000, 10, 1, 12, 0);
+        assertTrue(
+                event.isOverlappingWithPeriod(periodStart, periodEnd),
+                """
+                        
+                        Check before the event
+                        periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
+                        periodEnd = LocalDateTime.of(2000, 10, 1, 12, 0);
+                        LocalDateTime.of(2000, 10, 1, 12, 0); (duration=60)"""
+        );
+
+        // Check after the event
+        periodStart = LocalDateTime.of(2000, 10, 1, 13, 0);
+        periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
+        assertTrue(
+                event.isOverlappingWithPeriod(periodStart, periodEnd),
+                """
+                        
+                        Check after the event
+                        periodStart = LocalDateTime.of(2000, 10, 1, 13, 0);
+                        periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
+                        LocalDateTime.of(2000, 10, 1, 12, 0); (duration=60)"""
+        );
     }
 }
