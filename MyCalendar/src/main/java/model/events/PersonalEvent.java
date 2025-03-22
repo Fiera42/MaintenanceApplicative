@@ -11,6 +11,6 @@ public class PersonalEvent extends Event {
 
     @Override
     public String description() {
-        return "RDV : " + title + " à " + start.toString();
+        return "RDV : " + title.value() + " à " + start.value().toString();
     }
 }

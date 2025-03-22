@@ -1,6 +1,7 @@
 package model.events;
 
 import model.Event;
+import model.eventsValueObject.ImmutableInteger;
 
 import java.time.LocalDateTime;
 
@@ -8,15 +9,23 @@ public class PeriodicEvent extends Event {
     /**
      * Frequency of the event IN DAY
      */
-    public int frequency;
+    public ImmutableInteger frequency;
 
+    /**
+     * Create a new periodic event that happen every [frequency] days
+     * @param title The name of the event
+     * @param owner Who created the event
+     * @param start The starting date of the event
+     * @param duration The duration of the event
+     * @param frequency The event appear in the calendar every [frequency] days
+     */
     public PeriodicEvent(String title, String owner, LocalDateTime start, int duration, int frequency) {
         super(title, owner, start, duration);
-        this.frequency = frequency;
+        this.frequency = new ImmutableInteger(frequency);
     }
 
     @Override
     public String description() {
-        return "Événement périodique : " + title + " tous les " + frequency + " jours";
+        return "Événement périodique : " + title.value() + " tous les " + frequency.value() + " jours";
     }
 }

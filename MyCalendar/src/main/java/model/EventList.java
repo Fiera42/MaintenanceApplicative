@@ -35,15 +35,15 @@ public class EventList implements Iterable<Event> {
     }
 
     public boolean conflict(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.start.plusMinutes(e1.duration);
-        LocalDateTime fin2 = e2.start.plusMinutes(e2.duration);
+        LocalDateTime fin1 = e1.start.value().plusMinutes(e1.duration.value());
+        LocalDateTime fin2 = e2.start.value().plusMinutes(e2.duration.value());
 
 
         if(e1 instanceof PeriodicEvent || e2 instanceof PeriodicEvent) {
             return false; // Simplification abusive
         }
 
-        if (e1.start.isBefore(fin2) && fin1.isAfter(e2.start)) {
+        if (e1.start.value().isBefore(fin2) && fin1.isAfter(e2.start.value())) {
             return true;
         }
         return false;

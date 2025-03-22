@@ -23,9 +23,6 @@ public class CalendarService {
     // ------------------------------------------------------- Class
 
     private final EventList eventList = new EventList();
-    //case "PERIODIQUE" -> ;
-    //            case "REUNION" ->
-    //            case "RDV_PERSONNEL" -> ;
 
     public void addEvent(Event event) {
         eventList.addEvent(event);
@@ -35,15 +32,15 @@ public class CalendarService {
         List<Event> result = new ArrayList<>();
         for (Event e : eventList) {
             if(e instanceof PeriodicEvent periodicEvent) {
-                LocalDateTime temp = e.start;
+                LocalDateTime temp = e.start.value();
                 while (temp.isBefore(fin)) {
                     if (!temp.isBefore(debut)) {
                         result.add(e);
                         break;
                     }
-                    temp = temp.plusDays(periodicEvent.frequency);
+                    temp = temp.plusDays(periodicEvent.frequency.value());
                 }
-            }else if (!e.start.isBefore(debut) && !e.start.isAfter(fin)) {
+            }else if (!e.start.value().isBefore(debut) && !e.start.value().isAfter(fin)) {
                 result.add(e);
             }
         }
