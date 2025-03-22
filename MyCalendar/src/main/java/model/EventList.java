@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class EventList implements Iterable<Event> {
 
-    public List<Event> events = new ArrayList<>();
+    private final List<Event> events = new ArrayList<>();
 
     public boolean addEvent(Event event) {
         // TODO : check if no conflict

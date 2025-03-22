@@ -3,10 +3,10 @@ package model;
 import java.time.LocalDateTime;
 
 public abstract class Event {
-    public String title;
-    public String owner;
-    public LocalDateTime start;
-    public int duration;
+    protected String title;
+    protected String owner;
+    protected LocalDateTime start;
+    protected int duration;
 
     public Event(String title, String owner, LocalDateTime start, int duration) {
         this.title = title;
