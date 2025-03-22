@@ -35,4 +35,14 @@ public class MeetingEvent extends Event {
         }
         return string.toString();
     }
+
+    @Override
+    public boolean isStartingInPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        return false;
+    }
+
+    @Override
+    public boolean isOverlappingWithPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        return false;
+    }
 }

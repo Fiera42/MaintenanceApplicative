@@ -28,4 +28,14 @@ public class PeriodicEvent extends Event {
     public String description() {
         return "Événement périodique : " + title.value() + " tous les " + frequency.value() + " jours";
     }
+
+    @Override
+    public boolean isStartingInPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        return false;
+    }
+
+    @Override
+    public boolean isOverlappingWithPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        return false;
+    }
 }

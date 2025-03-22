@@ -20,4 +20,6 @@ public abstract class Event {
     }
 
     public abstract String description();
+    public abstract boolean isStartingInPeriod(LocalDateTime periodStart, LocalDateTime periodEnd);
+    public abstract boolean isOverlappingWithPeriod(LocalDateTime periodStart, LocalDateTime periodEnd);
 }

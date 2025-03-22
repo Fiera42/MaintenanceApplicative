@@ -13,4 +13,14 @@ public class PersonalEvent extends Event {
     public String description() {
         return "RDV : " + title.value() + " à " + start.value().toString();
     }
+
+    @Override
+    public boolean isStartingInPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        return false;
+    }
+
+    @Override
+    public boolean isOverlappingWithPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        return false;
+    }
 }
