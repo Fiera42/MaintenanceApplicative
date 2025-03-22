@@ -38,11 +38,14 @@ public class MeetingEvent extends Event {
 
     @Override
     public boolean isStartingInPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
-        return false;
+        return !this.start.value().isBefore(periodStart) && !this.start.value().isAfter(periodEnd);
     }
 
     @Override
     public boolean isOverlappingWithPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
-        return false;
+        LocalDateTime eventEnd = start.value().plusMinutes(duration.value());
+
+        // Use not before/after for equal dates
+        return !eventEnd.isBefore(periodStart) && !this.start.value().isAfter(periodEnd);
     }
 }

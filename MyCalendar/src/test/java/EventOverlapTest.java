@@ -28,6 +28,7 @@ public class EventOverlapTest {
         assertFalse(
                 event.isOverlappingWithPeriod(periodStart, periodEnd),
                 """
+                        
                         Check before the event
                         periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
                         periodEnd = LocalDateTime.of(2000, 10, 1, 11, 59);
@@ -40,6 +41,7 @@ public class EventOverlapTest {
         assertFalse(
                 event.isOverlappingWithPeriod(periodStart, periodEnd),
                 """
+                        
                         Check after the event
                         periodStart = LocalDateTime.of(2000, 10, 1, 13, 1);
                         periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
@@ -64,6 +66,7 @@ public class EventOverlapTest {
         assertTrue(
                 event.isOverlappingWithPeriod(periodStart, periodEnd),
                 """
+                        
                         Check during the event
                         periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
                         periodEnd = LocalDateTime.of(3000, 10, 1, 12, 0);
@@ -76,6 +79,7 @@ public class EventOverlapTest {
         assertTrue(
                 event.isOverlappingWithPeriod(periodStart, periodEnd),
                 """
+                        
                         Check before the event
                         periodStart = LocalDateTime.of(1000, 10, 1, 12, 0);
                         periodEnd = LocalDateTime.of(2000, 10, 1, 12, 0);
@@ -88,6 +92,7 @@ public class EventOverlapTest {
         assertTrue(
                 event.isOverlappingWithPeriod(periodStart, periodEnd),
                 """
+                        
                         Check after the event
                         periodStart = LocalDateTime.of(2000, 10, 1, 13, 0);
                         periodEnd = LocalDateTime.of(3000, 10, 1, 13, 0);
