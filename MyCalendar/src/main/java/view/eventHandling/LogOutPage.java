@@ -13,7 +13,7 @@ public class LogOutPage implements Page {
     @Override
     public void display() {
         System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
-        if(ScannerService.nextLine().trim().equalsIgnoreCase("o") || ScannerService.nextLine().equalsIgnoreCase("oui")) {
+        if(ScannerService.escapedNextLine().trim().equalsIgnoreCase("o") || ScannerService.escapedNextLine().equalsIgnoreCase("oui")) {
             AuthSystem.logout();
         }
     }

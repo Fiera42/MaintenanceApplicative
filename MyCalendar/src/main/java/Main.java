@@ -24,7 +24,7 @@ public class Main {
                     System.out.println((i+1) + " - " + menuItems[i].getTitle());
                 }
                 System.out.println("Votre choix : ");
-                String choice = ScannerService.nextLine();
+                String choice = ScannerService.escapedNextLine();
                 int choiceIndex = Integer.parseInt(choice) - 1;
                 if(choiceIndex < 0 || choiceIndex >= menuItems.length) choiceIndex = menuItems.length - 1;
                 currentPage = menuItems[choiceIndex];

@@ -17,7 +17,7 @@ public class GolderMasterTest {
     @DisplayName("Golder master")
     public void caracterizationTest() throws IOException {
         // runs 10.000 "random" games to see the output of old and new code mathces
-        for (int seed = 1; seed < 10; seed++) {
+        for (int seed = 1; seed < 15; seed++) {
             testSeed(seed, false);
         }
     }

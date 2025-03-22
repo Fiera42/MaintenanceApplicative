@@ -4,6 +4,7 @@ import model.CalendarService;
 import model.ScannerService;
 import model.events.PeriodicEvent;
 import model.users.AuthSystem;
+import view.InputHelper;
 import view.Page;
 
 import java.time.LocalDateTime;
@@ -16,43 +17,20 @@ public class NewPeriodicEventPage implements Page {
 
     @Override
     public void display() {
-        System.out.print("Titre de l'événement : ");
-        String titre3 = ScannerService.nextLine();
-        System.out.print("Année (AAAA) : ");
-        int annee3 = Integer.parseInt(ScannerService.nextLine());
-        System.out.print("Mois (1-12) : ");
-        int moisRdv3 = Integer.parseInt(ScannerService.nextLine());
-        if(moisRdv3 == 0) moisRdv3++;
-        while (moisRdv3 > 12) {
-            System.out.print("Entrez le mois (1-12) : ");
-            moisRdv3 = Integer.parseInt(ScannerService.nextLine());
-            if(moisRdv3 == 0) moisRdv3++;
-        }
-        System.out.print("Jour (1-31) : ");
-        int jourRdv3 = Integer.parseInt(ScannerService.nextLine());
-        if(jourRdv3 == 0) jourRdv3++;
-        while (jourRdv3 > 31) {
-            System.out.print("Entrez le jour (1-31) : ");
-            jourRdv3 = Integer.parseInt(ScannerService.nextLine());
-            if(jourRdv3 == 0) jourRdv3++;
-        }
-        System.out.print("Heure début (0-23) : ");
-        int heure3 = Integer.parseInt(ScannerService.nextLine());
-        while (heure3 > 23) {
-            System.out.print("Heure début (0-23) : ");
-            heure3 = Integer.parseInt(ScannerService.nextLine());
-        }
-        System.out.print("Minute début (0-59) : ");
-        int minute3 = Integer.parseInt(ScannerService.nextLine());
-        while (minute3 > 59) {
-            System.out.print("Minute début (0-59) : ");
-            minute3 = Integer.parseInt(ScannerService.nextLine());
-        }
-        System.out.print("Fréquence (en jours) : ");
-        int frequence = Integer.parseInt(ScannerService.nextLine());
+        System.out.print("Entrez le titre de l'événement : ");
+        String title = ScannerService.escapedNextLine();
+        System.out.print("Entrez l'année (AAAA) : ");
+        int year = Integer.parseInt(ScannerService.escapedNextLine());
+        int month = InputHelper.askInputRange("le mois", 1, 12);
+        int day = InputHelper.askInputRange("le jour", 1, 31);
+        int hour = InputHelper.askInputRange("l'heure de début", 0, 23);
+        int minute = InputHelper.askInputRange("la minute de début", 0, 59);
+
+        System.out.print("Entrez la fréquence (en jours) : ");
+        int frequency = Integer.parseInt(ScannerService.escapedNextLine());
 
         CalendarService.getInstance().addEvent(
-                new PeriodicEvent(titre3, AuthSystem.getCurrentUser(), LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0, frequence)
+                new PeriodicEvent(title, AuthSystem.getCurrentUser(), LocalDateTime.of(year, month, day, hour, minute), 0, frequency)
         );
 
         System.out.println("Événement ajouté.");

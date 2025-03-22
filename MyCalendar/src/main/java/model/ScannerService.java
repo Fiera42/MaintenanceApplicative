@@ -9,7 +9,15 @@ public class ScannerService {
         scanner = new Scanner(System.in);
     }
 
-    public static String nextLine() {
-        return scanner.nextLine();
+    public static String escapedNextLine() {
+        String input = scanner.nextLine();
+        StringBuilder escapedString = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) {
+                escapedString.append("\\");
+            }
+            escapedString.append(c);
+        }
+        return escapedString.toString();
     }
 }
