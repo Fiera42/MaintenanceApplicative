@@ -11,7 +11,7 @@ public class DisplayMenu implements MenuPage {
 
     @Override
     public Page[] getMenuItems() {
-        return new Page[] {new DisplayAllPage(), new DisplayMonthPage(), new DisplayWeekPage(), new DisplayDayPage(), new GoBackPage()};
+        return new Page[] {new DisplayAllPage(), new DisplayAllInPeriodPage(), new DisplayMonthPage(), new DisplayWeekPage(), new DisplayDayPage(), new GoBackPage()};
     }
 
     @Override
