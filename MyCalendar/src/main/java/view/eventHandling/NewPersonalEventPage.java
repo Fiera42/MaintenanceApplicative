@@ -2,6 +2,7 @@ package view.eventHandling;
 
 import model.CalendarService;
 import model.ScannerService;
+import model.events.PersonalEvent;
 import model.users.AuthSystem;
 import view.Page;
 
@@ -50,9 +51,9 @@ public class NewPersonalEventPage implements Page {
         System.out.print("Durée (en minutes) : ");
         int duree = Integer.parseInt(ScannerService.nextLine());
 
-        CalendarService.getInstance().ajouterEvent("RDV_PERSONNEL", titre, AuthSystem.getCurrentUser(),
-                LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
-                "", "", 0);
+        CalendarService.getInstance().addEvent(
+                new PersonalEvent(titre, AuthSystem.getCurrentUser(), LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree)
+        );
 
         System.out.println("Événement ajouté.");
     }

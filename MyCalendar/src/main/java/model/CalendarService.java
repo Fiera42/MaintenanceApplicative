@@ -1,8 +1,6 @@
 package model;
 
 import model.events.PeriodicEvent;
-import model.events.PersonalEvent;
-import model.events.MeetingEvent;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,18 +23,12 @@ public class CalendarService {
     // ------------------------------------------------------- Class
 
     private final EventList eventList = new EventList();
+    //case "PERIODIQUE" -> ;
+    //            case "REUNION" ->
+    //            case "RDV_PERSONNEL" -> ;
 
-    public void ajouterEvent(String type, String title, String owner, LocalDateTime start, int duration,
-                             String place, String participants, int frequency) {
-
-        Event e = switch (type) {
-            case "PERIODIQUE" -> new PeriodicEvent(title, owner, start, duration, frequency);
-            case "REUNION" -> new MeetingEvent(title, owner, start, duration, place, participants);
-            case "RDV_PERSONNEL" -> new PersonalEvent(title, owner, start, duration);
-            default -> null;
-        };
-
-        eventList.addEvent(e);
+    public void addEvent(Event event) {
+        eventList.addEvent(event);
     }
 
     public List<Event> eventsDansPeriod(LocalDateTime debut, LocalDateTime fin) {

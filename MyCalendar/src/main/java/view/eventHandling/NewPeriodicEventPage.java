@@ -2,6 +2,7 @@ package view.eventHandling;
 
 import model.CalendarService;
 import model.ScannerService;
+import model.events.PeriodicEvent;
 import model.users.AuthSystem;
 import view.Page;
 
@@ -50,9 +51,9 @@ public class NewPeriodicEventPage implements Page {
         System.out.print("Fréquence (en jours) : ");
         int frequence = Integer.parseInt(ScannerService.nextLine());
 
-        CalendarService.getInstance().ajouterEvent("PERIODIQUE", titre3, AuthSystem.getCurrentUser(),
-                LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
-                "", "", frequence);
+        CalendarService.getInstance().addEvent(
+                new PeriodicEvent(titre3, AuthSystem.getCurrentUser(), LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0, frequence)
+        );
 
         System.out.println("Événement ajouté.");
     }

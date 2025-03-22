@@ -2,6 +2,7 @@ package view.eventHandling;
 
 import model.CalendarService;
 import model.ScannerService;
+import model.events.MeetingEvent;
 import model.users.AuthSystem;
 import view.Page;
 
@@ -63,9 +64,9 @@ public class NewMeetingEventPage implements Page {
         }
 
         try {
-            CalendarService.getInstance().ajouterEvent("REUNION", titre2, AuthSystem.getCurrentUser(),
-                    LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
-                    lieu, participants, 0);
+            CalendarService.getInstance().addEvent(
+                    new MeetingEvent(titre2, AuthSystem.getCurrentUser(), LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2, lieu, participants)
+            );
 
             System.out.println("Événement ajouté.");
         }
