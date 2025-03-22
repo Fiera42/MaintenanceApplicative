@@ -14,7 +14,7 @@ public class ImportantEvent extends Event {
 
     @Override
     public String description() {
-        return "RDV : " + title.value() + " à " + start.value().toString();
+        return "RDV : " + title.value() + " à " + start.value().toString() + "(id: " + eventId.value().toString() + ")";
     }
 
     @Override

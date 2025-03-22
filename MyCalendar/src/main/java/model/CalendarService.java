@@ -1,7 +1,5 @@
 package model;
 
-import model.events.PeriodicEvent;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +26,20 @@ public class CalendarService {
         return eventList.addEvent(event);
     }
 
+    public boolean removeFromID(String id) {
+        id = id.trim().toLowerCase();
+        for(int i = 0; i < eventList.size(); i++) {
+            if(eventList.getEvent(i).eventId.value().toString().equals(id)) {
+                return eventList.removeEvent(eventList.getEvent(i));
+            }
+        }
+        return false;
+    }
+
     public List<Event> eventsDansPeriod(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
         for (Event e : eventList) {
-            if(e instanceof PeriodicEvent periodicEvent) {
-                LocalDateTime temp = e.start.value();
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        result.add(e);
-                        break;
-                    }
-                    temp = temp.plusDays(periodicEvent.frequency.value());
-                }
-            }else if (!e.start.value().isBefore(debut) && !e.start.value().isAfter(fin)) {
+            if(e.isStartingInPeriod(debut, fin)) {
                 result.add(e);
             }
         }

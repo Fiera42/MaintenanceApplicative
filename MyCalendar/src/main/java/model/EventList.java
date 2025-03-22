@@ -34,6 +34,20 @@ public class EventList implements Iterable<Event> {
         return true;
     }
 
+    public boolean removeEvent(Event event) {
+        int size = events.size();
+        events.remove(event);
+        return size != events.size();
+    }
+
+    public int size() {
+        return events.size();
+    }
+
+    public Event getEvent(int index) {
+        return events.get(index);
+    }
+
     @Override
     public Iterator<Event> iterator() {
         return events.iterator();

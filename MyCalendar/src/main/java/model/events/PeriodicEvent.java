@@ -26,7 +26,7 @@ public class PeriodicEvent extends Event {
 
     @Override
     public String description() {
-        return "Événement périodique : " + title.value() + " tous les " + frequency.value() + " jours";
+        return "Événement périodique : " + title.value() + " tous les " + frequency.value() + " jours" + "(id: " + eventId.value().toString() + ")";
     }
 
     @Override

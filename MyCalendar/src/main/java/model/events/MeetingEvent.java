@@ -21,7 +21,7 @@ public class MeetingEvent extends Event {
 
     @Override
     public String description() {
-        return "Réunion : " + title.value() + " à " + place.value() + " avec " + participantsListToString(participants.stream().map(ImmutableString::value).toList());
+        return "Réunion : " + title.value() + " à " + place.value() + " avec " + participantsListToString(participants.stream().map(ImmutableString::value).toList()) + "(id: " + eventId.value().toString() + ")";
     }
 
     public static String participantsListToString(List<String> participants) {
