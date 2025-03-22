@@ -1,5 +1,7 @@
 package model;
 
+import model.events.ImportantEvent;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +13,12 @@ public class EventList implements Iterable<Event> {
     private final List<Event> events = new ArrayList<>();
 
     public boolean addEvent(Event event) {
+        // This type of event can be added regardless of the calendar
+        if(event instanceof ImportantEvent) {
+            events.add(event);
+            return true;
+        }
+
         var periodStart = event.start.value();
         var periodEnd = periodStart.plusMinutes(event.duration.value());
         for(Event e : events) {
