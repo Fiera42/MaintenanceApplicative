@@ -13,7 +13,7 @@ public class MainMenu implements MenuPage {
 
     @Override
     public Page[] getMenuItems() {
-        return new Page[] {new DisplayMenu(), new NewPersonalEventPage(), new NewMeetingEventPage(), new NewPeriodicEventPage(), new LogOutPage()};
+        return new Page[] {new DisplayMenu(), new NewPersonalEventPage(), new NewMeetingEventPage(), new NewPeriodicEventPage(), new NewImportantEventPage(), new LogOutPage()};
     }
 
     @Override
