@@ -59,24 +59,34 @@ public class GolderMasterTest {
                 }
             }).start();
 
+            // New user
             writer.println("2");
             writer.println("Fiera");
             writer.println("666");
             writer.println("666");
+            // Log out
             writer.println("5");
             writer.println("O");
+            // New already-existing user
             writer.println("2");
             writer.println("Fiera");
             writer.println("Gerard");
             writer.println("Gégé94`; DROP TABLE Users;");
             writer.println("Gégé94`; DROP TABLE Users;");
+            // Log out
             writer.println("5");
             writer.println("O");
+            // Log in (wrong password)
+            writer.println("1");
+            writer.println("Fiera");
+            writer.println("777");
             writer.println("1");
             writer.println("Fiera");
             writer.println("666");
+            // Log out
             writer.println("5");
             writer.println("O");
+            // Log in using pre-existing accounts
             writer.println("1");
             writer.println("Roger");
             writer.println("Chat");
@@ -85,6 +95,21 @@ public class GolderMasterTest {
             writer.println("1");
             writer.println("Pierre");
             writer.println("KiRouhl");
+            // New meeting with a list of people
+            writer.println("3");
+            writer.println("Titre");
+            writer.println("2000");
+            writer.println("5");
+            writer.println("4");
+            writer.println("14");
+            writer.println("30");
+            writer.println("60");
+            writer.println("lieu");
+            writer.println("oui");
+            writer.println("Michel");
+            writer.println("o");
+            writer.println("Gordon Freeman");
+            writer.println("non");
 
             int rndValue;
             for(int i = 0; i < 500; i++) {

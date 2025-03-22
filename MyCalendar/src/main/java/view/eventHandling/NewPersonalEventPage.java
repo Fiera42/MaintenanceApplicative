@@ -4,7 +4,6 @@ import model.CalendarService;
 import model.ScannerService;
 import model.events.PersonalEvent;
 import model.users.AuthSystem;
-import view.InputHelper;
 import view.Page;
 
 import java.time.LocalDateTime;
@@ -21,10 +20,10 @@ public class NewPersonalEventPage implements Page {
         String title = ScannerService.escapedNextLine();
         System.out.print("Entrez l'année (AAAA) : ");
         int year = Integer.parseInt(ScannerService.escapedNextLine());
-        int month = InputHelper.askInputRange("le mois", 1, 12);
-        int day = InputHelper.askInputRange("le jour", 1, 31);
-        int hour = InputHelper.askInputRange("l'heure de début", 0, 23);
-        int minute = InputHelper.askInputRange("la minute de début", 0, 59);
+        int month = ScannerService.askInputRange("le mois", 1, 12);
+        int day = ScannerService.askInputRange("le jour", 1, 31);
+        int hour = ScannerService.askInputRange("l'heure de début", 0, 23);
+        int minute = ScannerService.askInputRange("la minute de début", 0, 59);
 
         System.out.print("Entrez la durée (en minutes) : ");
         int duration = Integer.parseInt(ScannerService.escapedNextLine());

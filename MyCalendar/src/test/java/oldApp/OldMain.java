@@ -298,10 +298,13 @@ public class OldMain {
                         String participants = utilisateur;
 
                         System.out.println("Ajouter un participant ? (oui / non)");
-                        while (scanner.nextLine().equalsIgnoreCase("o") || scanner.nextLine().equalsIgnoreCase("oui"))
+                        String response = scanner.nextLine();
+                        while (response.equalsIgnoreCase("o") || response.equalsIgnoreCase("oui"))
                         {
-                            System.out.print("Participants : " + participants);
+                            System.out.print("Participant : " + participants);
                             participants += ", " + scanner.nextLine();
+                            System.out.println("Ajouter un participant ? (oui / non)");
+                            response = scanner.nextLine();
                         }
 
                         try {

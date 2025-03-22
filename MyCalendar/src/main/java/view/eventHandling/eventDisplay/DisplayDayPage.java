@@ -2,7 +2,6 @@ package view.eventHandling.eventDisplay;
 
 import model.CalendarService;
 import model.ScannerService;
-import view.InputHelper;
 import view.Page;
 
 import java.time.LocalDateTime;
@@ -17,8 +16,8 @@ public class DisplayDayPage implements Page {
     public void display() {
         System.out.print("Entrez l'année (AAAA) : ");
         int year = Integer.parseInt(ScannerService.escapedNextLine());
-        int month = InputHelper.askInputRange("le mois", 1, 12);
-        int day = InputHelper.askInputRange("le jour", 1, 31);
+        int month = ScannerService.askInputRange("le mois", 1, 12);
+        int day = ScannerService.askInputRange("le jour", 1, 31);
 
         LocalDateTime debutJour = LocalDateTime.of(year, month, day, 0, 0);
         LocalDateTime finJour = debutJour.plusDays(1).minusSeconds(1);

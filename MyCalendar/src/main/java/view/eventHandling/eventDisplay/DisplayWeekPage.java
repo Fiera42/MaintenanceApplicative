@@ -2,7 +2,6 @@ package view.eventHandling.eventDisplay;
 
 import model.CalendarService;
 import model.ScannerService;
-import view.InputHelper;
 import view.Page;
 
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class DisplayWeekPage implements Page {
     public void display() {
         System.out.print("Entrez l'année (AAAA) : ");
         int anneeSemaine = Integer.parseInt(ScannerService.escapedNextLine());
-        int week = InputHelper.askInputRange("le numéro de semaine", 1, 52);
+        int week = ScannerService.askInputRange("le numéro de semaine", 1, 52);
 
         LocalDateTime debutSemaine = LocalDateTime.now()
                 .withYear(anneeSemaine)
