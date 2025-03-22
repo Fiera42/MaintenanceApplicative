@@ -24,8 +24,8 @@ public class CalendarService {
 
     private final EventList eventList = new EventList();
 
-    public void addEvent(Event event) {
-        eventList.addEvent(event);
+    public boolean addEvent(Event event) {
+        return eventList.addEvent(event);
     }
 
     public List<Event> eventsDansPeriod(LocalDateTime debut, LocalDateTime fin) {

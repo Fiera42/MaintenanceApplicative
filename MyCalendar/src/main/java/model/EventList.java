@@ -1,8 +1,5 @@
 package model;
 
-import model.events.PeriodicEvent;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +11,17 @@ public class EventList implements Iterable<Event> {
     private final List<Event> events = new ArrayList<>();
 
     public boolean addEvent(Event event) {
-        // TODO : check if no conflict
+        var periodStart = event.start.value();
+        var periodEnd = periodStart.plusMinutes(event.duration.value());
+        for(Event e : events) {
+            // Check in both way to handle periodic events
+            if(e.isOverlappingWithPeriod(periodStart, periodEnd)) {
+                return false;
+            }
+            if(event.isOverlappingWithPeriod(e.start.value(), e.start.value().plusMinutes(event.duration.value()))) {
+                return false;
+            }
+        }
         events.add(event);
         return true;
     }
@@ -32,20 +39,5 @@ public class EventList implements Iterable<Event> {
     @Override
     public Spliterator<Event> spliterator() {
         return events.spliterator();
-    }
-
-    public boolean conflict(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.start.value().plusMinutes(e1.duration.value());
-        LocalDateTime fin2 = e2.start.value().plusMinutes(e2.duration.value());
-
-
-        if(e1 instanceof PeriodicEvent || e2 instanceof PeriodicEvent) {
-            return false; // Simplification abusive
-        }
-
-        if (e1.start.value().isBefore(fin2) && fin1.isAfter(e2.start.value())) {
-            return true;
-        }
-        return false;
     }
 }

@@ -48,11 +48,16 @@ public class NewMeetingEventPage implements Page {
         }
 
         try {
-            CalendarService.getInstance().addEvent(
+            var res = CalendarService.getInstance().addEvent(
                     new MeetingEvent(title, AuthSystem.getCurrentUser(), LocalDateTime.of(year, month, day, hour, minute), duration, lieu, participants)
             );
 
-            System.out.println("Événement ajouté.");
+            if(res) {
+                System.out.println("Événement ajouté.");
+            }
+            else {
+                System.out.println("Chevauchement d'événement !");
+            }
         }
         catch (DateTimeException e) {
             System.out.print("Problème : " + e.getMessage());

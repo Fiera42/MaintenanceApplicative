@@ -28,10 +28,15 @@ public class NewPersonalEventPage implements Page {
         System.out.print("Entrez la durée (en minutes) : ");
         int duration = Integer.parseInt(ScannerService.escapedNextLine());
 
-        CalendarService.getInstance().addEvent(
+        var res = CalendarService.getInstance().addEvent(
                 new PersonalEvent(title, AuthSystem.getCurrentUser(), LocalDateTime.of(year, month, day, hour, minute), duration)
         );
 
-        System.out.println("Événement ajouté.");
+        if(res) {
+            System.out.println("Événement ajouté.");
+        }
+        else {
+            System.out.println("Chevauchement d'événement !");
+        }
     }
 }

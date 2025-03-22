@@ -28,10 +28,15 @@ public class NewPeriodicEventPage implements Page {
         System.out.print("Entrez la fréquence (en jours) : ");
         int frequency = Integer.parseInt(ScannerService.escapedNextLine());
 
-        CalendarService.getInstance().addEvent(
+        var res = CalendarService.getInstance().addEvent(
                 new PeriodicEvent(title, AuthSystem.getCurrentUser(), LocalDateTime.of(year, month, day, hour, minute), 0, frequency)
         );
 
-        System.out.println("Événement ajouté.");
+        if(res) {
+            System.out.println("Événement ajouté.");
+        }
+        else {
+            System.out.println("Chevauchement d'événement !");
+        }
     }
 }
