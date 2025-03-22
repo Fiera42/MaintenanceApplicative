@@ -31,11 +31,26 @@ public class PeriodicEvent extends Event {
 
     @Override
     public boolean isStartingInPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        var testDate = start.value();
+        while (!testDate.isAfter(periodEnd)) {
+            if(!testDate.isBefore(periodStart)) return true;
+            testDate = testDate.plusDays(frequency.value());
+        }
+
         return false;
     }
 
     @Override
     public boolean isOverlappingWithPeriod(LocalDateTime periodStart, LocalDateTime periodEnd) {
+        var testStartDate = start.value();
+        var testEndDate = start.value().plusMinutes(duration.value());
+
+        while (!testStartDate.isAfter(periodEnd)) {
+            if(!testEndDate.isBefore(periodStart) && !testStartDate.isAfter(periodEnd)) return true;
+            testStartDate = testStartDate.plusDays(frequency.value());
+            testEndDate = testStartDate.plusMinutes(duration.value());
+        }
+
         return false;
     }
 }
